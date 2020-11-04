@@ -33,7 +33,6 @@ namespace ToyBlockFactory
         public string PrintQuantityTable(OrderItemsCollection orderItems)
         {
             var rowHeaders = orderItems.GetShapes();
-
             var stringToPrint = ConstructQuantityString(orderItems, rowHeaders);
             return stringToPrint;
         }
@@ -80,7 +79,6 @@ namespace ToyBlockFactory
             string rowToPrint = "";
             var quantity = orderItems.GetQuantityByShape(rowHeader);
             rowToPrint += (quantity == 0? "-" : quantity.ToString()) + "\n";
-
             return rowToPrint;
         }
 
@@ -95,5 +93,6 @@ namespace ToyBlockFactory
             }
             return rowToPrint;
         }
+
     }
 }

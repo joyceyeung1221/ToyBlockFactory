@@ -52,8 +52,8 @@ namespace ToyBlockFactoryTests
                 {new Block(Shape.Square, Color.Blue),1 },
                 {new Block(Shape.Triangle, Color.Yellow),1 }
             };
-            var orderItemCollection = new OrderItemsCollection(orderItems);
 
+            var orderItemCollection = new OrderItemsCollection(orderItems);
             var results = helper.PrintOrderTable(orderItemCollection);
             var expected = " ,Blue,Red,Yellow\n" +
                 "Circle,-,2,3\n" +
