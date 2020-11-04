@@ -21,7 +21,7 @@ namespace ToyBlockFactory
             return summary;
         }
 
-        public string PrintOrderTable(OrderItemCollection orderItems)
+        public string PrintOrderTable(OrderItemsCollection orderItems)
         {
             var columnHeaders = orderItems.GetColors();
             var rowHeaders = orderItems.GetShapes();
@@ -30,7 +30,7 @@ namespace ToyBlockFactory
             return stringToPrint;
         }
 
-        public string PrintQuantityTable(OrderItemCollection orderItems)
+        public string PrintQuantityTable(OrderItemsCollection orderItems)
         {
             var rowHeaders = orderItems.GetShapes();
 
@@ -38,7 +38,7 @@ namespace ToyBlockFactory
             return stringToPrint;
         }
 
-        private string ConstructQuantityString(OrderItemCollection orderItems, List<Shape> rowHeaders)
+        private string ConstructQuantityString(OrderItemsCollection orderItems, List<Shape> rowHeaders)
         {
             var stringToPrint = "";
             foreach (var rowHeader in rowHeaders)
@@ -54,7 +54,7 @@ namespace ToyBlockFactory
             return stringToPrint;
         }
 
-        private string ConstructOrderString(OrderItemCollection orderItems, List<Color> columnHeaders, List<Shape> rowHeaders)
+        private string ConstructOrderString(OrderItemsCollection orderItems, List<Color> columnHeaders, List<Shape> rowHeaders)
         {
             var stringToPrint = "";
             foreach (var rowHeader in rowHeaders)
@@ -75,7 +75,7 @@ namespace ToyBlockFactory
             return " ," + string.Join(",", columnHeaders.ToArray()) + "\n";
         }
 
-        private string ConstructRowString(OrderItemCollection orderItems, Shape rowHeader)
+        private string ConstructRowString(OrderItemsCollection orderItems, Shape rowHeader)
         {
             string rowToPrint = "";
             var quantity = orderItems.GetQuantityByShape(rowHeader);
@@ -84,7 +84,7 @@ namespace ToyBlockFactory
             return rowToPrint;
         }
 
-        private string ConstructRowString(OrderItemCollection orderItems, List<Color> columnHeaders, Shape rowHeader)
+        private string ConstructRowString(OrderItemsCollection orderItems, List<Color> columnHeaders, Shape rowHeader)
         {
             string rowToPrint = "";
             foreach (var columnHeader in columnHeaders)

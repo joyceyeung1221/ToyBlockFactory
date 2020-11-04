@@ -3,18 +3,13 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class OrderItemCollection
+    public class OrderItemsCollection
     {
         private Dictionary<Block, int> _orderItems;
 
-        public OrderItemCollection(Dictionary<Block, int> orderItems)
+        public OrderItemsCollection(Dictionary<Block, int> orderItems)
         {
             _orderItems = orderItems;
-        }
-
-        public Dictionary<Block, int> GetAllItems()
-        {
-            return _orderItems;
         }
 
         public List<Color> GetColors()

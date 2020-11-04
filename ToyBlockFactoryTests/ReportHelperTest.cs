@@ -31,7 +31,7 @@ namespace ToyBlockFactoryTests
         {
             var customer = new Customer("Mark Pearl", "1 Bob Avenue, Auckland");
             var orderItems = new Dictionary<Block, int>();
-            var orderItemCollection = new OrderItemCollection(orderItems);
+            var orderItemCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
             var order = new Order(date, customer, orderItemCollection);
 
@@ -52,7 +52,7 @@ namespace ToyBlockFactoryTests
                 {new Block(Shape.Square, Color.Blue),1 },
                 {new Block(Shape.Triangle, Color.Yellow),1 }
             };
-            var orderItemCollection = new OrderItemCollection(orderItems);
+            var orderItemCollection = new OrderItemsCollection(orderItems);
 
             var results = helper.PrintOrderTable(orderItemCollection);
             var expected = " ,Blue,Red,Yellow\n" +
@@ -73,7 +73,7 @@ namespace ToyBlockFactoryTests
                 {new Block(Shape.Square, Color.Blue),1 },
                 {new Block(Shape.Triangle, Color.Yellow),1 }
             };
-            var orderItemCollection = new OrderItemCollection(orderItems);
+            var orderItemCollection = new OrderItemsCollection(orderItems);
 
             var results = helper.PrintQuantityTable(orderItemCollection);
             var expected = " ,Quantity\n" +
