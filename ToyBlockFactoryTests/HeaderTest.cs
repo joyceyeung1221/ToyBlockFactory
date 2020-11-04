@@ -1,4 +1,5 @@
 ﻿using System;
+using ToyBlockFactory;
 using Xunit;
 namespace ToyBlockFactoryTests
 {
@@ -15,9 +16,10 @@ namespace ToyBlockFactoryTests
         public void ShouldPrintReportName(string reportName, string expected)
         {
             var header = new Header(reportName);
-            var result = header.GetString();
+            var result = header.PrintString();
 
             Assert.Equal(expected, result);
         }
+
     }
 }

@@ -9,9 +9,9 @@ namespace ToyBlockFactory
             _reportName = reportName;
         }
 
-        public string GetPrintableString()
+        public string PrintString()
         {
-            return $"Your {_reportName} has been generated:";
+            return $"Your {_reportName.ToLower()} has been generated:";
         }
     }
 }
