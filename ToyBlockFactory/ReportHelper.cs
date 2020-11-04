@@ -21,26 +21,24 @@ namespace ToyBlockFactory
             return summary;
         }
 
-        public string PrintOrderTable(Dictionary<Block, int> orderItems)
+        public string PrintOrderTable(OrderItemCollection orderItems)
         {
-            var headers = GetHeaders(orderItems);
-            var columnHeaders = headers.Item1;
-            var rowHeaders = headers.Item2;
+            var columnHeaders = orderItems.GetColors();
+            var rowHeaders = orderItems.GetShapes();
 
             var stringToPrint = ConstructOrderString(orderItems, columnHeaders, rowHeaders);
             return stringToPrint;
         }
 
-        public string PrintQuantityTable(Dictionary<Block, int> orderItems)
+        public string PrintQuantityTable(OrderItemCollection orderItems)
         {
-            var headers = GetHeaders(orderItems);
-            var rowHeaders = headers.Item2;
+            var rowHeaders = orderItems.GetShapes();
 
             var stringToPrint = ConstructQuantityString(orderItems, rowHeaders);
             return stringToPrint;
         }
 
-        private string ConstructQuantityString(Dictionary<Block, int> orderItems, List<Shape> rowHeaders)
+        private string ConstructQuantityString(OrderItemCollection orderItems, List<Shape> rowHeaders)
         {
             var stringToPrint = "";
             foreach (var rowHeader in rowHeaders)
@@ -56,7 +54,7 @@ namespace ToyBlockFactory
             return stringToPrint;
         }
 
-        private string ConstructOrderString(Dictionary<Block, int> orderItems, List<Color> columnHeaders, List<Shape> rowHeaders)
+        private string ConstructOrderString(OrderItemCollection orderItems, List<Color> columnHeaders, List<Shape> rowHeaders)
         {
             var stringToPrint = "";
             foreach (var rowHeader in rowHeaders)
@@ -72,86 +70,30 @@ namespace ToyBlockFactory
             return stringToPrint;
         }
 
-        private (List<Color>, List<Shape>) GetHeaders(Dictionary<Block, int> orderItems)
-        {
-            var columnHeaders = new List<Color>();
-            var rowHeaders = new List<Shape>();
-            foreach (var item in orderItems.Keys)
-            {
-                columnHeaders.Add(item.Color);
-                rowHeaders.Add(item.Shape);
-            }
-            columnHeaders = SortAndRemoveDuplicate(columnHeaders);
-            rowHeaders = SortAndRemoveDuplicate(rowHeaders);
-
-            return (columnHeaders, rowHeaders);
-        }
-
         private string PrintColumnHeaders(List<Color> columnHeaders)
         {
             return " ," + string.Join(",", columnHeaders.ToArray()) + "\n";
         }
 
-        private string ConstructRowString(Dictionary<Block, int> orderItems, Shape rowHeader)
+        private string ConstructRowString(OrderItemCollection orderItems, Shape rowHeader)
         {
             string rowToPrint = "";
-            var quantity = GetQuantityForEachType(rowHeader, orderItems);
-            rowToPrint += quantity + "\n";
+            var quantity = orderItems.GetQuantityByShape(rowHeader);
+            rowToPrint += (quantity == 0? "-" : quantity.ToString()) + "\n";
 
             return rowToPrint;
         }
 
-        private string ConstructRowString(Dictionary<Block, int> orderItems, List<Color> columnHeaders, Shape rowHeader)
+        private string ConstructRowString(OrderItemCollection orderItems, List<Color> columnHeaders, Shape rowHeader)
         {
             string rowToPrint = "";
             foreach (var columnHeader in columnHeaders)
             {
-                var quantity = GetQuantityForEachType(rowHeader, columnHeader, orderItems);
-                rowToPrint += quantity;
+                var quantity = orderItems.GetQuantityByShapeAndColor(rowHeader, columnHeader);
+                rowToPrint += (quantity == 0 ? "-" : quantity.ToString());
                 rowToPrint += (columnHeader == columnHeaders[^1] ? "\n" : ",");
             }
             return rowToPrint;
-        }
-
-        private object GetQuantityForEachType(Shape rowHeader, Dictionary<Block, int> orderItems)
-        {
-            var quantity = 0;
-            foreach (var item in orderItems)
-            {
-                var block = item.Key;
-                if (block.Shape == rowHeader)
-                {
-                    quantity += item.Value;
-                }
-            }
-            return quantity == 0 ? "-" : quantity.ToString();
-        }
-
-        private string GetQuantityForEachType(Shape rowHeader, Color columnHeader, Dictionary<Block, int> orderItems)
-        {
-            foreach(var item in orderItems)
-            {
-                var block = item.Key;
-                if (block.Color == columnHeader && block.Shape == rowHeader)
-                {
-                    return item.Value.ToString();
-                }
-            }
-            return "-";
-        }
-
-        private List<T> SortAndRemoveDuplicate<T>(List<T> headers)
-        {
-            var uniqueHeaders = new List<T>();
-            foreach(var header in headers)
-            {
-                if(!uniqueHeaders.Contains(header))
-                {
-                    uniqueHeaders.Add(header);
-                }
-            }
-            uniqueHeaders.Sort();
-            return uniqueHeaders;
         }
     }
 }

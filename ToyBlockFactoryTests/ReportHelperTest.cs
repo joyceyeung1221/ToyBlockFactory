@@ -30,9 +30,10 @@ namespace ToyBlockFactoryTests
         public void ShouldPrintOrderDetails()
         {
             var customer = new Customer("Mark Pearl", "1 Bob Avenue, Auckland");
-            var orderItems = new Dictionary<IInvoiceItem, int>();
+            var orderItems = new Dictionary<Block, int>();
+            var orderItemCollection = new OrderItemCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
-            var order = new Order(date, customer, orderItems);
+            var order = new Order(date, customer, orderItemCollection);
 
             var result = helper.PrintOrderSummary(order);
             var expected = "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001";
@@ -51,8 +52,9 @@ namespace ToyBlockFactoryTests
                 {new Block(Shape.Square, Color.Blue),1 },
                 {new Block(Shape.Triangle, Color.Yellow),1 }
             };
+            var orderItemCollection = new OrderItemCollection(orderItems);
 
-            var results = helper.PrintOrderTable(orderItems);
+            var results = helper.PrintOrderTable(orderItemCollection);
             var expected = " ,Blue,Red,Yellow\n" +
                 "Circle,-,2,3\n" +
                 "Square,1,-,-\n" +
@@ -71,8 +73,9 @@ namespace ToyBlockFactoryTests
                 {new Block(Shape.Square, Color.Blue),1 },
                 {new Block(Shape.Triangle, Color.Yellow),1 }
             };
+            var orderItemCollection = new OrderItemCollection(orderItems);
 
-            var results = helper.PrintQuantityTable(orderItems);
+            var results = helper.PrintQuantityTable(orderItemCollection);
             var expected = " ,Quantity\n" +
                 "Circle,5\n" +
                 "Square,1\n" +
