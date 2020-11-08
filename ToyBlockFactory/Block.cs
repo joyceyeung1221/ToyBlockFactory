@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public class Block : IInvoiceItem
+    public class Block
     {
         public Shape Shape { get; private set; }
         public Color Color { get; private set; }
@@ -10,16 +10,6 @@ namespace ToyBlockFactory
         {
             Shape = shape;
             Color = color;
-        }
-
-        public string GetName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double GetPrice()
-        {
-            throw new NotImplementedException();
         }
     }
 }
