@@ -15,8 +15,8 @@ namespace ToyBlockFactoryTests
         [InlineData("Cutting List", "Your cutting list has been generated:")]
         public void ShouldPrintReportName(string reportName, string expected)
         {
-            var header = new Header(reportName);
-            var result = header.PrintString();
+            var header = new Header();
+            var result = header.GenerateString(reportName);
 
             Assert.Equal(expected, result);
         }

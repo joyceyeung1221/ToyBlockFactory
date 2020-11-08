@@ -21,7 +21,7 @@ namespace ToyBlockFactoryTests
             var order = new Order(date, customer, orderItemCollection);
 
             var orderSummary = new OrderSummary();
-            var result = orderSummary.PrintString(order);
+            var result = orderSummary.GenerateString(order);
             var expected = "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001";
 
             Assert.Equal(expected, result);

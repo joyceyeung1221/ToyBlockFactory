@@ -23,7 +23,7 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
             var shapeQuantityTable = new ShapeQuantityTable();
-            var results = shapeQuantityTable.PrintString(orderItemsCollection);
+            var results = shapeQuantityTable.GenerateString(orderItemsCollection);
             var expected = " ,Quantity\n" +
                 "Circle,5\n" +
                 "Square,1\n" +

@@ -4,14 +4,13 @@ namespace ToyBlockFactory
     public class Header
     {
         private string _reportName;
-        public Header(string reportName)
+        public Header()
         {
-            _reportName = reportName;
         }
 
-        public string PrintString()
+        public string GenerateString(string reportName)
         {
-            return $"Your {_reportName.ToLower()} has been generated:";
+            return $"Your {reportName.ToLower()} has been generated:";
         }
     }
 }

@@ -63,6 +63,19 @@ namespace ToyBlockFactory
             }
             return quantity;
         }
+        public int GetQuantityByColor(Color color)
+        {
+            var quantity = 0;
+            foreach (var item in _orderItems)
+            {
+                var block = item.Key;
+                if (block.Color == color)
+                {
+                    quantity += item.Value;
+                }
+            }
+            return quantity;
+        }
 
         public int GetQuantityByShapeAndColor(Shape shape, Color color)
         {

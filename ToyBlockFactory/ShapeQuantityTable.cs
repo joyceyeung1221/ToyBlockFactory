@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class ShapeQuantityTable
+    public class ShapeQuantityTable : ITable
     {
 
-        public string PrintString(OrderItemsCollection orderItems)
+        public string GenerateString(OrderItemsCollection orderItems)
         {
             var rowHeaders = orderItems.GetShapes();
             var stringToPrint = ConstructQuantityString(orderItems, rowHeaders);
