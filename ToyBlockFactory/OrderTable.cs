@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class OrderTable
+    public class OrderTable : ITable
     {
 
-        public string PrintString(OrderItemsCollection orderItems)
+        public string GenerateString(OrderItemsCollection orderItems)
         {
             var columnHeaders = orderItems.GetColors();
             var rowHeaders = orderItems.GetShapes();

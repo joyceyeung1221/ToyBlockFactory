@@ -23,7 +23,7 @@ namespace ToyBlockFactoryTests
             };
             var orderItemCollection = new OrderItemsCollection(orderItems);
             var orderTable = new OrderTable();
-            var results = orderTable.PrintString(orderItemCollection);
+            var results = orderTable.GenerateString(orderItemCollection);
             var expected = " ,Blue,Red,Yellow\n" +
                 "Circle,-,2,3\n" +
                 "Square,1,-,-\n" +

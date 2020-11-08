@@ -3,7 +3,7 @@ namespace ToyBlockFactory
 {
     public class OrderSummary
     {
-        public string PrintString(Order order)
+        public string GenerateString(Order order)
         {
             var customer = order.Customer;
             var summary = $"Name: {customer.Name} " +
