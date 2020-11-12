@@ -14,12 +14,25 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldPrintTableBasedOnShapeAndColor()
         {
-            var orderItems = new Dictionary<Block, int>
+            var colors = new List<Color>
             {
-                {new Block(Shape.Circle, Color.Red),2 },
-                {new Block(Shape.Circle, Color.Yellow),3 },
-                {new Block(Shape.Square, Color.Blue),1 },
-                {new Block(Shape.Triangle, Color.Yellow),1 }
+                new Color("Red",(decimal)1.00),
+                new Color("Yellow",(decimal)1.00),
+                new Color("Blue",(decimal)1.00)
+            };
+
+            var item1 = new OrderItem(new Block(Shape.Circle), colors[0]);
+            var item2 = new OrderItem(new Block(Shape.Circle), colors[1]);
+            var item3 = new OrderItem(new Block(Shape.Square), colors[2]);
+            var item4 = new OrderItem(new Block(Shape.Triangle), colors[1]);
+            item1.SetQuantity(2);
+            item2.SetQuantity(3);
+            item3.SetQuantity(1);
+            item4.SetQuantity(1);
+
+            var orderItems = new List<OrderItem>
+            {
+                item1,item2,item3,item4
             };
             var orderItemCollection = new OrderItemsCollection(orderItems);
             var orderTable = new OrderTable();

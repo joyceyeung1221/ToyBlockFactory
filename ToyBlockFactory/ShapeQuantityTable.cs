@@ -8,22 +8,22 @@ namespace ToyBlockFactory
 
         public string GenerateString(OrderItemsCollection orderItems)
         {
-            var rowHeaders = orderItems.GetShapes();
-            var stringToPrint = ConstructQuantityString(orderItems, rowHeaders);
+            var blocks = orderItems.GetShapeBlocks();
+            var stringToPrint = ConstructQuantityString(orderItems, blocks);
             return stringToPrint;
         }
 
-        private string ConstructQuantityString(OrderItemsCollection orderItems, List<Shape> rowHeaders)
+        private string ConstructQuantityString(OrderItemsCollection orderItems, List<Block> rowHeaders)
         {
             var stringToPrint = "";
-            foreach (var rowHeader in rowHeaders)
+            foreach (var block in rowHeaders)
             {
                 if (stringToPrint == "")
                 {
                     stringToPrint += " ,Quantity\n";
                 }
 
-                stringToPrint += rowHeader + "," + ConstructRowString(orderItems, rowHeader);
+                stringToPrint += block.Shape + "," + ConstructRowString(orderItems, block);
 
             }
             return stringToPrint;
@@ -31,7 +31,7 @@ namespace ToyBlockFactory
 
 
 
-        private string ConstructRowString(OrderItemsCollection orderItems, Shape rowHeader)
+        private string ConstructRowString(OrderItemsCollection orderItems, Block rowHeader)
         {
             string rowToPrint = "";
             var quantity = orderItems.GetQuantityByShape(rowHeader);

@@ -9,6 +9,7 @@ namespace ToyBlockFactory
         public Customer Customer { get; private set; }
         public OrderItemsCollection OrderItems { get; private set; }
         public int OrderNumber { get; private set; }
+        
 
         private static int lastOrderNumber = 0;
 

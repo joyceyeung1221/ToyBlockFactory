@@ -10,14 +10,30 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldPrintQuantityWithUnitPriceAndTotalCost()
         {
-            var billableItemList = new List<BillableItem>
+            var customer = new Customer("Mark Pearl", "1 Bob Avenue, Auckland");
+            var colors = new List<Color>
             {
-                new BillableItem("Circles",5,(decimal)3.00),
-                new BillableItem("Squares",1,(decimal)1.00),
-                new BillableItem("Triangles",1,(decimal)2.00),
-                new BillableItem("Red color surcharge",2,(decimal)1.00),
+                new Color("Red",(decimal)1.00),
+                new Color("Yellow",(decimal)0.00),
+                new Color("Blue",(decimal)0.00)
             };
 
+            var item1 = new OrderItem(new Block(Shape.Circle), colors[0]);
+            var item2 = new OrderItem(new Block(Shape.Circle), colors[1]);
+            var item3 = new OrderItem(new Block(Shape.Square), colors[2]);
+            var item4 = new OrderItem(new Block(Shape.Triangle), colors[1]);
+            item1.SetQuantity(2);
+            item2.SetQuantity(3);
+            item3.SetQuantity(1);
+            item4.SetQuantity(1);
+
+            var orderItems = new List<OrderItem>
+            {
+                item1,item2,item3,item4
+            };
+            var orderItemsCollection = new OrderItemsCollection(orderItems);
+            var date = new DateTime(2019, 01, 19);
+            var order = new Order(date, customer, orderItemsCollection);
             var itemList = new ItemListWithPrice();
 
             var expected =
@@ -26,7 +42,8 @@ namespace ToyBlockFactoryTests
                 "Triangles,1 @ $2 ppi = $2\n" +
                 "Red color surcharge,2 @ $1 ppi = $2";
 
-            var result = itemList.GenerateString(billableItemList);
+            var result = itemList.GenerateString(orderItemsCollection);
+
 
             Assert.Equal(expected, result);
         }
