@@ -14,8 +14,8 @@ namespace ToyBlockFactoryTests
             var colors = new List<Color>
             {
                 new Color("Red",(decimal)1.00),
-                new Color("Yellow",(decimal)1.00),
-                new Color("Blue",(decimal)1.00)
+                new Color("Yellow",(decimal)0.00),
+                new Color("Blue",(decimal)0.00)
             };
 
             var item1 = new OrderItem(new Block(Shape.Circle), colors[0]);
