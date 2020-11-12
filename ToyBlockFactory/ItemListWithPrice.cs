@@ -9,13 +9,31 @@ namespace ToyBlockFactory
         {
         }
 
-        public string GenerateString(List<BillableItem> billableItems)
+        public string GenerateString(OrderItemsCollection orderItems)
         {
             var stringToPrint = "";
-            foreach(var billableItem in billableItems)
+            var blocks = orderItems.GetShapeBlocks();
+            var shapeOrders = new Dictionary<Block, int>();
+            foreach (var block in blocks)
             {
-                stringToPrint += $"{billableItem.Name},{billableItem.Quantity} @ ${billableItem.IndividualCost} ppi = ${billableItem.Quantity * billableItem.IndividualCost}";
-                if (billableItem != billableItems[^1])
+                var quantity = orderItems.GetQuantityByShape(block);
+                shapeOrders.Add(block, quantity);
+            }
+
+            var colors = orderItems.GetColors();
+            var colorOrders = new Dictionary<Color, int>();
+            foreach (var color in colors)
+            {
+                if (color.Price != 0)
+                {
+                    var quantity = orderItems.GetQuantityByColor(color);
+                    colorOrders.Add(color, quantity);
+                }
+            }
+            foreach (var shapeOrder in shapeOrders)
+            {
+                stringToPrint += $"{shapeOrder.Key.Shape},{shapeOrder.Value} @ ${shapeOrder.Key.Price} ppi = ${shapeOrder.Value * shapeOrder.Key.Price}";
+                if (shapeOrder != shapeOrders[^1])
                 {
                     stringToPrint += "\n";
                 }

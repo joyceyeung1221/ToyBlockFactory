@@ -8,40 +8,46 @@ namespace ToyBlockFactory
 
         public string GenerateString(OrderItemsCollection orderItems)
         {
-            var columnHeaders = orderItems.GetColors();
-            var rowHeaders = orderItems.GetShapes();
+            var colors = orderItems.GetColors();
+            var blocks = orderItems.GetShapeBlocks();
 
-            var stringToPrint = ConstructOrderString(orderItems, columnHeaders, rowHeaders);
+            var stringToPrint = ConstructOrderString(orderItems, colors, blocks);
             return stringToPrint;
         }
 
-        private string ConstructOrderString(OrderItemsCollection orderItems, List<Color> columnHeaders, List<Shape> rowHeaders)
+        private string ConstructOrderString(OrderItemsCollection orderItems, List<Color> columnHeaders, List<Block> rowHeaders)
         {
             var stringToPrint = "";
-            foreach (var rowHeader in rowHeaders)
+            foreach (var block in rowHeaders)
             {
                 if (stringToPrint == "")
                 {
-                    stringToPrint += PrintColumnHeaders(columnHeaders);
+                    stringToPrint += GeneratePrintableColumnHeaders(columnHeaders);
                 }
 
-                stringToPrint += rowHeader + "," + ConstructRowString(orderItems, columnHeaders, rowHeader);
+                stringToPrint += block.Shape + "," + ConstructRowString(orderItems, columnHeaders, block);
 
             }
             return stringToPrint;
         }
 
-        private string PrintColumnHeaders(List<Color> columnHeaders)
+        private string GeneratePrintableColumnHeaders(List<Color> columnHeaders)
         {
-            return " ," + string.Join(",", columnHeaders.ToArray()) + "\n";
+            var stringToExtract = " ,";
+            foreach(var color in columnHeaders)
+            {
+                stringToExtract += color.Name;
+                stringToExtract += color != columnHeaders[^1] ? "," : "\n";
+            }
+            return stringToExtract;
         }
 
-        private string ConstructRowString(OrderItemsCollection orderItems, List<Color> columnHeaders, Shape rowHeader)
+        private string ConstructRowString(OrderItemsCollection orderItems, List<Color> columnHeaders, Block block)
         {
             string rowToPrint = "";
             foreach (var columnHeader in columnHeaders)
             {
-                var quantity = orderItems.GetQuantityByShapeAndColor(rowHeader, columnHeader);
+                var quantity = orderItems.GetQuantityByShapeAndColor(block, columnHeader);
                 rowToPrint += (quantity == 0 ? "-" : quantity.ToString());
                 rowToPrint += (columnHeader == columnHeaders[^1] ? "\n" : ",");
             }

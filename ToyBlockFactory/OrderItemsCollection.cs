@@ -5,9 +5,9 @@ namespace ToyBlockFactory
 {
     public class OrderItemsCollection
     {
-        private Dictionary<Block, int> _orderItems;
+        private List<OrderItem> _orderItems;
 
-        public OrderItemsCollection(Dictionary<Block, int> orderItems)
+        public OrderItemsCollection(List<OrderItem> orderItems)
         {
             _orderItems = orderItems;
         }
@@ -15,50 +15,65 @@ namespace ToyBlockFactory
         public List<Color> GetColors()
         {
             var colors = new List<Color>();
-            foreach (var item in _orderItems.Keys)
+            foreach (var item in _orderItems)
             {
-                colors.Add(item.Color);
+                colors.Add(item.ColorOption);
             }
-            colors = SortAndRemoveDuplicate(colors);
+            colors = RemoveDuplicate(colors);
+            colors.Sort((x, y) => x.Name.CompareTo(y.Name));
+
 
             return colors;
         }
 
-        public List<Shape> GetShapes()
+        public List<Block> GetShapeBlocks()
         {
-            var shapes = new List<Shape>();
-            foreach (var item in _orderItems.Keys)
+            var shapes = new List<Block>();
+            foreach (var item in _orderItems)
             {
-                shapes.Add(item.Shape);
+                shapes.Add(item.Block);
             }
-            shapes = SortAndRemoveDuplicate(shapes);
+            shapes = RemoveDuplicate(shapes);
+            shapes.Sort((x, y) => x.Shape.CompareTo(y.Shape));
 
             return shapes;
         }
 
-        private List<T> SortAndRemoveDuplicate<T>(List<T> headers)
+        private List<Color> RemoveDuplicate(List<Color> colors)
         {
-            var uniqueHeaders = new List<T>();
-            foreach (var header in headers)
+            var uniqueList = new List<Color>();
+            foreach (var color in colors)
             {
-                if (!uniqueHeaders.Contains(header))
+                if (!uniqueList.Contains(color))
                 {
-                    uniqueHeaders.Add(header);
+                    uniqueList.Add(color);
                 }
             }
-            uniqueHeaders.Sort();
-            return uniqueHeaders;
+            return uniqueList;
         }
 
-        public int GetQuantityByShape(Shape shape)
+        private List<Block> RemoveDuplicate(List<Block> blocks)
+        {
+            var uniqueList = new List<Block>();
+            foreach (var block in blocks)
+            {
+                var index = uniqueList.FindIndex(x => x.Shape == block.Shape);
+                if(index<0)
+                {
+                    uniqueList.Add(block);
+                }
+            }
+            return uniqueList;
+        }
+
+        public int GetQuantityByShape(Block block)
         {
             var quantity = 0;
             foreach (var item in _orderItems)
             {
-                var block = item.Key;
-                if (block.Shape == shape)
+                if (item.Block.Shape == block.Shape)
                 {
-                    quantity += item.Value;
+                    quantity += item.Quantity;
                 }
             }
             return quantity;
@@ -68,23 +83,21 @@ namespace ToyBlockFactory
             var quantity = 0;
             foreach (var item in _orderItems)
             {
-                var block = item.Key;
-                if (block.Color == color)
+                if (item.ColorOption == color)
                 {
-                    quantity += item.Value;
+                    quantity += item.Quantity;
                 }
             }
             return quantity;
         }
 
-        public int GetQuantityByShapeAndColor(Shape shape, Color color)
+        public int GetQuantityByShapeAndColor(Block block, Color color)
         {
             foreach (var item in _orderItems)
             {
-                var block = item.Key;
-                if (block.Color == color && block.Shape == shape)
+                if (item.ColorOption == color && item.Block.Shape == block.Shape)
                 {
-                    return item.Value;
+                    return item.Quantity;
                 }
             }
             return 0;

@@ -15,7 +15,7 @@ namespace ToyBlockFactoryTests
         public void ShouldPrintOrderDetails()
         {
             var customer = new Customer("Mark Pearl", "1 Bob Avenue, Auckland");
-            var orderItems = new Dictionary<Block, int>();
+            var orderItems = new List<OrderItem>();
             var orderItemCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
             var order = new Order(date, customer, orderItemCollection);
