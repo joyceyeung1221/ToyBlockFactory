@@ -17,18 +17,20 @@
 //                .Returns("Address")
 //                .Returns("1");
 
-//            var listOfOptions = new List<Block>
+//            var color = new Color("Red",(decimal)1.00);
+//            var block = new Block(Shape.Circle);
+//            var listOfOptions = new List<OrderItem>
 //            {
-//                new Block(Shape.Circle,Color.Red)
+//                new OrderItem(block, color)
 //            };
 
 //            var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
-//            Order order = orderHandler.CreateOrder();
+//            var order = orderHandler.CreateOrder();
 //            var orderItems = order.OrderItems;
-     
-//            Assert.Equal(1, orderItems.NumberOfItems());
-//            Assert.Equal(1, orderItems.GetQuantityByShape(Shape.Circle));
-//            Assert.Equal(1, orderItems.GetQuantityByColor(Color.Red));
+
+//            Assert.Equal(1, orderItems.GetNumberOfItems());
+//            Assert.Equal(1, orderItems.GetQuantityByShape(block));
+//            Assert.Equal(1, orderItems.GetQuantityByColor(color));
 
 
 //        }

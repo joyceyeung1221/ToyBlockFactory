@@ -103,6 +103,11 @@ namespace ToyBlockFactory
             return 0;
         }
 
+        public int GetNumberOfItems()
+        {
+            return _orderItems.Count;
+        }
+
     }
 
 }
