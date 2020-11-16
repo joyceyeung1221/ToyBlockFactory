@@ -33,7 +33,6 @@ namespace ToyBlockFactoryTests
             Assert.Equal(1, orderItems.GetQuantityByShape(block));
             Assert.Equal(1, orderItems.GetQuantityByColor(color));
 
-
         }
     }
 }

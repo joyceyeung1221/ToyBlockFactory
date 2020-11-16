@@ -8,13 +8,7 @@ namespace ToyBlockFactory
     {
         private IIO _io;
         private List<OrderItem> _listOfOptions;
-        private Dictionary<string, int> _monthReference;
-
-        public ConsoleOrderHandler(IIO io, List<OrderItem> listOfOptions)
-        {
-            _io = io;
-            _listOfOptions = listOfOptions;
-            _monthReference = new Dictionary<string, int>
+        private readonly Dictionary<string, int> _monthReference = new Dictionary<string, int>
             {
                 { "jan" ,1},
                 { "feb" ,2},
@@ -29,6 +23,11 @@ namespace ToyBlockFactory
                 { "nov" ,11},
                 { "dec" ,12},
             };
+
+        public ConsoleOrderHandler(IIO io, List<OrderItem> orderItemsList)
+        {
+            _io = io;
+            _listOfOptions = orderItemsList;
         }
 
         public Order CreateOrder()
