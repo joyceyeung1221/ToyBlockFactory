@@ -78,6 +78,7 @@ namespace ToyBlockFactory
             }
             return quantity;
         }
+
         public int GetQuantityByColor(Color color)
         {
             var quantity = 0;

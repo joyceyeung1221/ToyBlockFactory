@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
-    public class ConsoleOrderHandler
+    public class ConsoleOrderHandler : IOrderHandler
     {
         private IIO _io;
         private List<OrderItem> _listOfOptions;
@@ -89,7 +89,5 @@ namespace ToyBlockFactory
             _io.Output($"Please input {request}:");
             return _io.Input();
         }
-
-
     }
 }
