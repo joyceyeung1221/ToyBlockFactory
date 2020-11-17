@@ -5,15 +5,15 @@ namespace ToyBlockFactory
 {
     public class OrderItemFactory
     {
-        private List<(string, decimal)> _colors;
+        private List<Color> _colors;
 
         public OrderItemFactory()
         {
-            _colors = new List<(string, decimal)>
+            _colors = new List<Color>
             {
-                ("yellow", (decimal)0.00),
-                ("blue", (decimal)0.00),
-                ("red", (decimal)1.00),
+                new Color("Yellow", (decimal)0.00),
+                new Color("Blue", (decimal)0.00),
+                new Color("Red", (decimal)1.00)
             };
         }
 
@@ -24,7 +24,7 @@ namespace ToyBlockFactory
             {
                 foreach(var color in _colors)
                 {
-                    var orderItem = new OrderItem(new Block(shape), new Color(color.Item1, color.Item2));
+                    var orderItem = new OrderItem(new Block(shape), color);
                     orderItems.Add(orderItem);
                 }
             }

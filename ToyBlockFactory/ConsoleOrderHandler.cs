@@ -6,7 +6,7 @@ namespace ToyBlockFactory
 {
     public class ConsoleOrderHandler : IOrderHandler
     {
-        private IIO _io;
+        private IInputOutput _io;
         private List<OrderItem> _listOfOptions;
         private readonly Dictionary<string, int> _monthReference = new Dictionary<string, int>
             {
@@ -24,7 +24,7 @@ namespace ToyBlockFactory
                 { "dec" ,12},
             };
 
-        public ConsoleOrderHandler(IIO io, List<OrderItem> orderItemsList)
+        public ConsoleOrderHandler(IInputOutput io, List<OrderItem> orderItemsList)
         {
             _io = io;
             _listOfOptions = orderItemsList;
@@ -49,7 +49,7 @@ namespace ToyBlockFactory
         private DateTime ConvertToDate(string input)
         {
             
-            Regex pattern = new Regex(@"(?<date>\d\d) (?<month>\w\w\w) (?<year>\d\d\d\d)");
+            Regex pattern = new Regex(@"(?<date>\d\d?) (?<month>\w\w\w) (?<year>\d\d\d\d)");
             Match match = pattern.Match(input);
             var date = Int32.Parse(match.Groups["date"].Value);
             var month = _monthReference[match.Groups["month"].Value.ToLower()];
@@ -58,13 +58,13 @@ namespace ToyBlockFactory
             var dateTime = new DateTime(year, month, date);
             return dateTime;
         }
-
+        
         private OrderItemsCollection GetOrderItems()
         {
             var orderItems = new List<OrderItem>();
             foreach(var orderItem in _listOfOptions)
             {
-                var input = GetUserInput($"the number of {orderItem.ColorOption.Name}{orderItem.Block.Shape}s");
+                var input = GetUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s");
                 var quantity = Int32.Parse(input);
                 if ( quantity > 0)
                 {

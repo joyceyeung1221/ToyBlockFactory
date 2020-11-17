@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public class ConsoleIO : IIO
+    public class ConsoleIO : IInputOutput
     {
         public ConsoleIO()
         {

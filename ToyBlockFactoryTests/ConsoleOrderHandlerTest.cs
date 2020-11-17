@@ -11,7 +11,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldOrderContainCorrectOrderItems()
         {
-            var io = new Mock<IIO>();
+            var io = new Mock<IInputOutput>();
             io.SetupSequence(x => x.Input())
                 .Returns("Name")
                 .Returns("Address")

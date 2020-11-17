@@ -19,11 +19,12 @@ namespace ToyBlockFactoryTests
 
             var item1 = new OrderItem(new Block(Shape.Circle), yellow);
             var item2 = new OrderItem(new Block(Shape.Circle), red);
-            var item3 = new OrderItem(new Block(Shape.Square), yellow);
-            var item4 = new OrderItem(new Block(Shape.Triangle), yellow);
+            var item3 = new OrderItem(new Block(Shape.Square), red);
+            var item4 = new OrderItem(new Block(Shape.Square), yellow);
+            var item5 = new OrderItem(new Block(Shape.Triangle), yellow);
             var orderItems = new List<OrderItem>
             {
-                item1,item2,item3,item4
+                item1,item2,item3,item4,item5
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 

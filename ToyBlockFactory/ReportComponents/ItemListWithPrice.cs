@@ -12,41 +12,41 @@ namespace ToyBlockFactory
         public string GenerateString(OrderItemsCollection orderItems)
         {
             var stringToPrint = "";
-            var blocks = orderItems.GetAllShapes();
-            var shapeOrders = new List<(Block, int)>();
-            foreach (var block in blocks)
+            var shapes = orderItems.GetAllShapes();
+            var shapesWithQuantityList = new List<(Block, int)>();
+            foreach (var block in shapes)
             {
                 var quantity = orderItems.GetQuantityByShape(block);
-                shapeOrders.Add((block, quantity));
+                shapesWithQuantityList.Add((block, quantity));
             }
 
             var colors = orderItems.GetAllColors();
-            var colorOrders = new List<(Color, int)>();
+            var colorsWithQuantitiesList = new List<(Color, int)>();
             foreach (var color in colors)
             {
                 if (color.Price != 0)
                 {
                     var quantity = orderItems.GetQuantityByColor(color);
-                    colorOrders.Add((color, quantity));
+                    colorsWithQuantitiesList.Add((color, quantity));
                 }
             }
-            foreach (var shapeOrder in shapeOrders)
+            foreach (var shape in shapesWithQuantityList)
             {
-                var block = shapeOrder.Item1;
-                var quantity = shapeOrder.Item2;
+                var block = shape.Item1;
+                var quantity = shape.Item2;
                 stringToPrint += $"{block.Shape}s,{quantity} @ ${block.Price} ppi = ${quantity * block.Price}";
-                if (shapeOrder != shapeOrders[^1])
+                if (shape != shapesWithQuantityList[^1])
                 {
                     stringToPrint += "\n";
                 }
             }
-            if(colorOrders.Count != 0)
+            if(colorsWithQuantitiesList.Count != 0)
             {
-                foreach(var colorOption in colorOrders)
+                foreach(var color in colorsWithQuantitiesList)
                 {
-                    var color = colorOption.Item1;
-                    var quantity = colorOption.Item2;
-                    stringToPrint += $"\n{color.Name} color surcharge,{quantity} @ ${color.Price} ppi = ${quantity * color.Price}";
+                    var colorOption = color.Item1;
+                    var quantity = color.Item2;
+                    stringToPrint += $"\n{colorOption.Name} color surcharge,{quantity} @ ${colorOption.Price} ppi = ${quantity * colorOption.Price}";
                 }
             }
             return stringToPrint;

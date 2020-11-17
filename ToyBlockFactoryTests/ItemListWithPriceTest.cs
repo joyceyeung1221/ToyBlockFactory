@@ -21,7 +21,7 @@ namespace ToyBlockFactoryTests
             var item1 = new OrderItem(new Block(Shape.Circle), colors[0]);
             var item2 = new OrderItem(new Block(Shape.Circle), colors[1]);
             var item3 = new OrderItem(new Block(Shape.Square), colors[2]);
-            var item4 = new OrderItem(new Block(Shape.Triangle), colors[1]);
+            var item4 = new OrderItem(new Block(Shape.Triangle), colors[0]);
             item1.SetQuantity(2);
             item2.SetQuantity(3);
             item3.SetQuantity(1);
@@ -33,14 +33,13 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
-            var order = new Order(date, customer, orderItemsCollection);
             var itemList = new ItemListWithPrice();
 
             var expected =
                 "Circles,5 @ $3 ppi = $15\n" +
                 "Squares,1 @ $1 ppi = $1\n" +
                 "Triangles,1 @ $2 ppi = $2\n" +
-                "Red color surcharge,2 @ $1 ppi = $2";
+                "Red color surcharge,3 @ $1 ppi = $3";
 
             var result = itemList.GenerateString(orderItemsCollection);
 
