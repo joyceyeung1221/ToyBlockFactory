@@ -6,7 +6,7 @@ namespace ToyBlockFactory
         public PaintingReport()
         {
             _reportName = "Painting Report";
-            _table = new ShapeQuantityTable();
+            _table = new OrderTable();
         }
 
         public override string GenerateString(Order order)

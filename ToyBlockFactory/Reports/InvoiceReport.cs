@@ -7,7 +7,7 @@ namespace ToyBlockFactory
     {
         private ItemListWithPrice _itemList;
 
-        public InvoiceReport(Dictionary<Enum, decimal> priceList)
+        public InvoiceReport()
         {
             _reportName = "Invoice Report";
             _table = new ShapeQuantityTable();

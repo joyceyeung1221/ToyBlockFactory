@@ -12,7 +12,7 @@ namespace ToyBlockFactory
         public string GenerateString(OrderItemsCollection orderItems)
         {
             var stringToPrint = "";
-            var blocks = orderItems.GetShapeBlocks();
+            var blocks = orderItems.GetAllShapes();
             var shapeOrders = new List<(Block, int)>();
             foreach (var block in blocks)
             {
@@ -20,7 +20,7 @@ namespace ToyBlockFactory
                 shapeOrders.Add((block, quantity));
             }
 
-            var colors = orderItems.GetColors();
+            var colors = orderItems.GetAllColors();
             var colorOrders = new List<(Color, int)>();
             foreach (var color in colors)
             {
