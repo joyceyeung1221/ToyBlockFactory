@@ -8,8 +8,8 @@ namespace ToyBlockFactory
 
         public string GenerateString(OrderItemsCollection orderItems)
         {
-            var colors = orderItems.GetColors();
-            var blocks = orderItems.GetShapeBlocks();
+            var colors = orderItems.GetAllColors();
+            var blocks = orderItems.GetAllShapes();
 
             var stringToPrint = ConstructOrderString(orderItems, colors, blocks);
             return stringToPrint;

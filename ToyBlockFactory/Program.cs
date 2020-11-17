@@ -7,11 +7,7 @@ namespace ToyBlockFactory
     {
         static void Main(string[] args)
         {
-            var listOfProducts = new List<OrderItem>
-            {
-                new OrderItem(new Block(Shape.Circle), new Color("Red", (decimal)1.00)),
-                new OrderItem(new Block(Shape.Circle), new Color("Yellow", (decimal)0.00)),
-            };
+            var orderItemsList = new OrderItemFactory().CreateOrderItems();
 
             var listOfReports = new List<Report>
             {
@@ -19,8 +15,9 @@ namespace ToyBlockFactory
                 new CuttingList(),
                 new PaintingReport()
             };
+
             var io = new ConsoleIO();
-            var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, listOfProducts), new ConsolePresenter(io), listOfReports);
+            var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), new ConsolePresenter(io), listOfReports);
             managementSystem.Run();
         }
     }

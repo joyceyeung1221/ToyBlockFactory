@@ -8,7 +8,7 @@ namespace ToyBlockFactory
 
         public string GenerateString(OrderItemsCollection orderItems)
         {
-            var blocks = orderItems.GetShapeBlocks();
+            var blocks = orderItems.GetAllShapes();
             var stringToPrint = ConstructQuantityString(orderItems, blocks);
             return stringToPrint;
         }

@@ -27,7 +27,7 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            var result = orderItemsCollection.GetColors();
+            var result = orderItemsCollection.GetAllColors();
 
             Assert.Equal(2, result.Count);
             Assert.Contains(yellow, result);
@@ -55,7 +55,7 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            var result = orderItemsCollection.GetShapeBlocks();
+            var result = orderItemsCollection.GetAllShapes();
 
             Assert.Equal(2, result.Count);
             Assert.Contains(circle, result);

@@ -12,7 +12,7 @@ namespace ToyBlockFactory
             _orderItems = orderItems;
         }
 
-        public List<Color> GetColors()
+        public List<Color> GetAllColors()
         {
             var colors = new List<Color>();
             foreach (var item in _orderItems)
@@ -26,7 +26,7 @@ namespace ToyBlockFactory
             return colors;
         }
 
-        public List<Block> GetShapeBlocks()
+        public List<Block> GetAllShapes()
         {
             var shapes = new List<Block>();
             foreach (var item in _orderItems)
