@@ -41,31 +41,78 @@ namespace ToyBlockFactory
 
         private DateTime GetDueDate()
         {
-            var input = GetUserInput("Your Due Date");
-            var dueDate = ConvertToDate(input);
+            Match input;
+            DateTime dueDate = new DateTime();
+            do
+            {
+                input = GetUserInput("Your Due Date in DD MMM YYYY format", MatchWithDatePattern);
+                dueDate = ConvertToDate(input);
+                if (!dueDate.Equals(new DateTime()))
+                {
+                    break;
+                }
+
+            } while (true);
+
             return dueDate;
         }
 
-        private DateTime ConvertToDate(string input)
+        private DateTime ConvertToDate(Match matchResult)
+        {
+            var month = matchResult.Groups["month"].Value.ToLower();
+            var day = matchResult.Groups["date"].Value;
+            var year = matchResult.Groups["year"].Value;
+            DateTime date;
+            if (DateTime.TryParse($"{day} {month} {year}", out date))
+            {
+                return date;
+            }
+            return new DateTime();
+        }
+
+        private Match MatchWithDatePattern(string input)
         {
             
             Regex pattern = new Regex(@"(?<date>\d\d?) (?<month>\w\w\w) (?<year>\d\d\d\d)");
             Match match = pattern.Match(input);
-            var date = Int32.Parse(match.Groups["date"].Value);
-            var month = _monthReference[match.Groups["month"].Value.ToLower()];
-            var year = Int32.Parse(match.Groups["year"].Value);
 
-            var dateTime = new DateTime(year, month, date);
-            return dateTime;
+            return match;
         }
-        
+
+        private Match MatchWithNumberPattern(string input)
+        {
+
+            Regex pattern = new Regex(@"\d+?");
+            Match match = pattern.Match(input);
+
+            return match;
+        }
+
+        private Match MatchWithCharacterPattern(string input)
+        {
+
+            Regex pattern = new Regex(@"[a-zA-Z]+?");
+            Match match = pattern.Match(input);
+
+            return match;
+        }
+
+        private Match MatchWithAddressPattern(string input)
+        {
+
+            Regex pattern = new Regex(@"[a-zA-Z0-9_][a-zA-Z0-9_ ][a-zA-Z0-9_ ][a-zA-Z0-9_ ][a-zA-Z0-9_ ]+?");
+            Match match = pattern.Match(input);
+
+            return match;
+        }
+
         private OrderItemsCollection GetOrderItems()
         {
             var orderItems = new List<OrderItem>();
             foreach(var orderItem in _listOfOptions)
             {
-                var input = GetUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s");
-                var quantity = Int32.Parse(input);
+                var input = GetUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s",MatchWithNumberPattern);
+                var quantity = Int32.Parse(input.Value);
                 if ( quantity > 0)
                 {
                     orderItem.SetQuantity(quantity);
@@ -78,16 +125,22 @@ namespace ToyBlockFactory
 
         private Customer GetCustomer()
         {
-            var name = GetUserInput("Your Name");
-            var address = GetUserInput("Your Address");
+            var name = GetUserInput("Your Name",MatchWithCharacterPattern);
+            var address = GetUserInput("Your Address",MatchWithAddressPattern);
 
-            return new Customer(name, address);
+            return new Customer(name.Value, address.Value);
         }
 
-        private string GetUserInput(string request)
+        private Match GetUserInput(string request, Func<string,Match> MatchWithRegex)
         {
-            _io.Output($"Please input {request}:");
-            return _io.Input();
+            Match matchResult;
+            do
+            {
+                _io.Output($"Please input {request}: ");
+                var input = _io.Input();
+                matchResult = MatchWithRegex(input);
+            } while (!matchResult.Success);
+            return matchResult;
         }
     }
 }

@@ -18,7 +18,8 @@ namespace ToyBlockFactory
 
             var io = new ConsoleIO();
             var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), new ConsolePresenter(io), listOfReports);
-            managementSystem.Run();
+            //managementSystem.Run();
+            Console.Write(new DateTime().Equals(new DateTime()));
         }
     }
 }
