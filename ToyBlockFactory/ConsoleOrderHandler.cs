@@ -1,30 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
     public class ConsoleOrderHandler : IOrderHandler
     {
-        private IIO _io;
+        private IInputOutput _io;
         private List<OrderItem> _listOfOptions;
-        private readonly Dictionary<string, int> _monthReference = new Dictionary<string, int>
-            {
-                { "jan" ,1},
-                { "feb" ,2},
-                { "mar" ,3},
-                { "apr" ,4},
-                { "may" ,5},
-                { "jun" ,6},
-                { "jul" ,7},
-                { "aug" ,8},
-                { "sep" ,9},
-                { "oct" ,10},
-                { "nov" ,11},
-                { "dec" ,12},
-            };
+        private string _dateInputFormat = "dd MMM yyyy";
+        private int _minOrderInput = 0;
+        private int _maxOrderInput = 100;
+        private int _minCharForName = 3;
+        private int _minCharForAddress = 10;
 
-        public ConsoleOrderHandler(IIO io, List<OrderItem> orderItemsList)
+        public ConsoleOrderHandler(IInputOutput io, List<OrderItem> orderItemsList)
         {
             _io = io;
             _listOfOptions = orderItemsList;
@@ -39,24 +28,24 @@ namespace ToyBlockFactory
             return new Order(dueDate, customer, orderItems);
         }
 
+        private Customer GetCustomer()
+        {
+            var name = GetValidUserInput("Your Name", IsValidName);
+            var address = GetValidUserInput("Your Address", IsValidAddress);
+
+            return new Customer(name, address);
+        }
+
         private DateTime GetDueDate()
         {
-            var input = GetUserInput("Your Due Date");
-            var dueDate = ConvertToDate(input);
-            return dueDate;
+            string input = GetValidUserInput("Your Due Date in DD MMM YYYY format", IsValidDate);
+            return ConvertToDate(input);
         }
 
         private DateTime ConvertToDate(string input)
         {
-            
-            Regex pattern = new Regex(@"(?<date>\d\d) (?<month>\w\w\w) (?<year>\d\d\d\d)");
-            Match match = pattern.Match(input);
-            var date = Int32.Parse(match.Groups["date"].Value);
-            var month = _monthReference[match.Groups["month"].Value.ToLower()];
-            var year = Int32.Parse(match.Groups["year"].Value);
-
-            var dateTime = new DateTime(year, month, date);
-            return dateTime;
+            return DateTime.ParseExact(input, _dateInputFormat, null,
+               System.Globalization.DateTimeStyles.AllowWhiteSpaces);
         }
 
         private OrderItemsCollection GetOrderItems()
@@ -64,7 +53,7 @@ namespace ToyBlockFactory
             var orderItems = new List<OrderItem>();
             foreach(var orderItem in _listOfOptions)
             {
-                var input = GetUserInput($"the number of {orderItem.ColorOption.Name}{orderItem.Block.Shape}s");
+                var input = GetValidUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s", IsValidQuantity);
                 var quantity = Int32.Parse(input);
                 if ( quantity > 0)
                 {
@@ -76,18 +65,56 @@ namespace ToyBlockFactory
             return orderItemsCollection;
         }
 
-        private Customer GetCustomer()
+        private string GetValidUserInput(string request, Func<string, bool> IsValidInput)
         {
-            var name = GetUserInput("Your Name");
-            var address = GetUserInput("Your Address");
-
-            return new Customer(name, address);
+            string input;
+            do
+            {
+                _io.Output($"Please input {request}: ");
+                input  = _io.Input();
+            } while (!IsValidInput(input));
+            return input;
         }
 
-        private string GetUserInput(string request)
+        private bool IsValidDate(string input)
         {
-            _io.Output($"Please input {request}:");
-            return _io.Input();
+            DateTime date;
+            var IsInDateFormat = DateTime.TryParseExact(input, _dateInputFormat, null,
+               System.Globalization.DateTimeStyles.AllowWhiteSpaces,
+               out date);
+            if (IsInDateFormat)
+            {
+                return date > DateTime.Today;
+            }
+            return false;
+        }
+
+        private bool IsValidName(string input)
+        {
+
+            Regex pattern = new Regex(@"[a-zA-Z]+?");
+            Match match = pattern.Match(input);
+            return match.Success && input.Length >= _minCharForName;
+        }
+
+        private bool IsValidAddress(string input)
+        {
+
+            Regex pattern = new Regex(@"[a-zA-Z0-9_][a-zA-Z0-9_ ,.]+?");
+            Match match = pattern.Match(input);
+
+            return match.Success && input.Length >= _minCharForAddress;
+        }
+
+        private bool IsValidQuantity(string input)
+        {
+            int quantity;
+            var IsInNumberFormat = Int32.TryParse(input, out quantity);
+            if (IsInNumberFormat)
+            {
+                return (quantity >= _minOrderInput && quantity < _maxOrderInput);
+            }
+            return false;
         }
     }
 }

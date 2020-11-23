@@ -3,9 +3,9 @@ namespace ToyBlockFactory
 {
     public class ConsolePresenter : IPresenter
     {
-        private IIO _io;
+        private IInputOutput _io;
 
-        public ConsolePresenter(IIO io)
+        public ConsolePresenter(IInputOutput io)
         {
             _io = io;
         }
