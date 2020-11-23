@@ -8,14 +8,18 @@ namespace ToyBlockFactoryTests
 {
     public class ConsoleOrderHandlerTest
     {
+        private DateTime _testDueDate = DateTime.Today.AddDays(1);
+        private string _testName = "David";
+        private string _testAddress = "1 May Avenue";
+
         [Fact]
         public void ShouldOrderContainCorrectOrderItems()
         {
             var io = new Mock<IInputOutput>();
             io.SetupSequence(x => x.Input())
-                .Returns("Name")
-                .Returns("Address")
-                .Returns("10 Jun 2020")
+                .Returns(_testName)
+                .Returns(_testAddress)
+                .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
             var color = new Color("Red", (decimal)1.00);
@@ -44,10 +48,10 @@ namespace ToyBlockFactoryTests
         {
             var io = new Mock<IInputOutput>();
             io.SetupSequence(x => x.Input())
-                .Returns("Name")
-                .Returns("Address")
+                .Returns(_testName)
+                .Returns(_testAddress)
                 .Returns(userIncorrectInput)
-                .Returns("10 Jun 2020")
+                .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
             var color = new Color("Red", (decimal)1.00);
@@ -59,7 +63,7 @@ namespace ToyBlockFactoryTests
 
             var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
             var order = orderHandler.CreateOrder();
-            var expectedDate = new DateTime(2020,06,10);
+            var expectedDate = DateTime.Today.AddDays(1);
             var resultDate = order.DueDate;
 
             io.Verify(x => x.Output("Please input Your Due Date in DD MMM YYYY format: "), Times.Exactly(2));
@@ -75,9 +79,9 @@ namespace ToyBlockFactoryTests
             var io = new Mock<IInputOutput>();
             io.SetupSequence(x => x.Input())
                 .Returns(userIncorrectInput)
-                .Returns("Name")
-                .Returns("Address")
-                .Returns("10 Jun 2020")
+                .Returns(_testName)
+                .Returns(_testAddress)
+                .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
             var color = new Color("Red", (decimal)1.00);
@@ -102,10 +106,10 @@ namespace ToyBlockFactoryTests
         {
             var io = new Mock<IInputOutput>();
             io.SetupSequence(x => x.Input())
-                .Returns("Name")
+                .Returns(_testName)
                 .Returns(userIncorrectInput)
-                .Returns("1 Avenue")
-                .Returns("10 Jun 2020")
+                .Returns(_testAddress)
+                .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
             var color = new Color("Red", (decimal)1.00);
