@@ -10,7 +10,7 @@ namespace ToyBlockFactory
         public InvoiceReport()
         {
             _reportName = "Invoice Report";
-            _table = new ShapeQuantityTable();
+            _table = new OrderTable();
             _itemList = new ItemListWithPrice();
         }
 

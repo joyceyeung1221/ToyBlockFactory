@@ -26,9 +26,13 @@ namespace ToyBlockFactory
                 }
 
                 stringToPrint += block.Shape + "," + ConstructRowString(orderItems, columnHeaders, block);
-
             }
-            return stringToPrint;
+            return RemoveNewLineAtTheEnd(stringToPrint);
+        }
+
+        private string RemoveNewLineAtTheEnd(string stringToPrint)
+        {
+            return stringToPrint.Remove(stringToPrint.Length - 1);
         }
 
         private string GeneratePrintableColumnHeaders(List<Color> columnHeaders)

@@ -12,7 +12,7 @@ namespace ToyBlockFactory
             var listOfReports = new List<Report>
             {
                 new InvoiceReport(),
-                new CuttingList(),
+                new CuttingListReport(),
                 new PaintingReport()
             };
 

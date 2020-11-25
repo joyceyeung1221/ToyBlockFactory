@@ -5,11 +5,16 @@ using Xunit;
 
 namespace ToyBlockFactoryTests
 {
-    public class ItemListWithPriceTest
+    public class CuttingListReportTest
     {
-        [Fact]
-        public void ShouldPrintQuantityWithUnitPriceAndTotalCost()
+        public CuttingListReportTest()
         {
+        }
+
+        [Fact]
+        public void ShouldPrintReportInStringWithSpecificFormat()
+        {
+            var customer = new Customer("Mark Pearl", "1 Bob Avenue, Auckland");
             var colors = new List<Color>
             {
                 new Color("Red",(decimal)1.00),
@@ -32,17 +37,17 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
-            var itemList = new ItemListWithPrice();
 
-            var expected =
-                "Circles,5 @ $3 ppi = $15\n" +
-                "Squares,1 @ $1 ppi = $1\n" +
-                "Triangles,1 @ $2 ppi = $2\n" +
-                "Red color surcharge,3 @ $1 ppi = $3";
+            var order = new Order(date, customer, orderItemsCollection);
+            var report = new CuttingListReport();
 
-            var result = itemList.GenerateString(orderItemsCollection);
-
-
+            var result = report.GenerateString(order);
+            var expected = "Your cutting list has been generated:" + "\n" +
+                            "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001" + "\n" +
+                            " ,Quantity\n" +
+                            "Circle,5\n" +
+                            "Square,1\n" +
+                            "Triangle,1";
             Assert.Equal(expected, result);
         }
     }

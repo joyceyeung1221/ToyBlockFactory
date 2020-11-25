@@ -10,7 +10,13 @@ namespace ToyBlockFactory
         {
             var blocks = orderItems.GetAllShapes();
             var stringToPrint = ConstructQuantityString(orderItems, blocks);
-            return stringToPrint;
+            return RemoveNewLineAtTheEnd(stringToPrint);
+        }
+
+
+        private string RemoveNewLineAtTheEnd(string stringToPrint)
+        {
+            return stringToPrint.Remove(stringToPrint.Length - 1);
         }
 
         private string ConstructQuantityString(OrderItemsCollection orderItems, List<Block> rowHeaders)
