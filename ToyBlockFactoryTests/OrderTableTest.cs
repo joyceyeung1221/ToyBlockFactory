@@ -40,7 +40,7 @@ namespace ToyBlockFactoryTests
             var expected = " ,Blue,Red,Yellow\n" +
                 "Circle,-,2,3\n" +
                 "Square,1,-,-\n" +
-                "Triangle,-,-,1\n";
+                "Triangle,-,-,1";
 
             Assert.Equal(expected, results);
         }

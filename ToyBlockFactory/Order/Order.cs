@@ -18,8 +18,7 @@ namespace ToyBlockFactory
             DueDate = dueDate;
             Customer = customer;
             OrderItems = orderItems;
-            OrderNumber = lastOrderNumber + 1;
-            lastOrderNumber += 1;
+            OrderNumber = 1;
         }
     }
 }

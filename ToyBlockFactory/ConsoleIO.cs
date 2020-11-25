@@ -14,7 +14,7 @@ namespace ToyBlockFactory
 
         public void Output(string text)
         {
-            Console.Write(text);
+            Console.WriteLine(text);
         }
     }
 }

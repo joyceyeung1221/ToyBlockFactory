@@ -1,9 +1,9 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public class CuttingList : Report
+    public class CuttingListReport : Report
     {
-        public CuttingList()
+        public CuttingListReport()
         {
             _reportName = "Cutting List";
             _table = new ShapeQuantityTable();
