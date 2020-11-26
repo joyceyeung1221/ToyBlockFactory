@@ -3,7 +3,6 @@ namespace ToyBlockFactory
 {
     public class Header
     {
-        private string _reportName;
         public Header()
         {
         }

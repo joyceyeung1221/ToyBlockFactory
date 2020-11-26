@@ -20,13 +20,13 @@ namespace ToyBlockFactory
             _listOfOptions = orderItemsList;
         }
 
-        public Order CreateOrder()
+        public Order CreateOrder(int orderNumber)
         {
             var customer = GetCustomer();
             var dueDate = GetDueDate();
             var orderItems = GetOrderItems();
 
-            return new Order(dueDate, customer, orderItems);
+            return new Order(orderNumber, dueDate, customer, orderItems);
         }
 
         private Customer GetCustomer()

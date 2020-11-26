@@ -3,6 +3,6 @@ namespace ToyBlockFactory
 {
     public interface IOrderHandler
     {
-        Order CreateOrder();
+        Order CreateOrder(int orderNumber);
     }
 }

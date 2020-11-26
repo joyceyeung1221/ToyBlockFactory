@@ -30,7 +30,7 @@ namespace ToyBlockFactoryTests
             };
 
             var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
-            var order = orderHandler.CreateOrder();
+            var order = orderHandler.CreateOrder(1);
             var orderItems = order.OrderItems;
 
             Assert.Equal(1, orderItems.GetNumberOfItems());
@@ -62,7 +62,7 @@ namespace ToyBlockFactoryTests
             };
 
             var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
-            var order = orderHandler.CreateOrder();
+            var order = orderHandler.CreateOrder(1);
             var expectedDate = DateTime.Today.AddDays(1);
             var resultDate = order.DueDate;
 
@@ -92,7 +92,7 @@ namespace ToyBlockFactoryTests
             };
 
             var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
-            var order = orderHandler.CreateOrder();
+            var order = orderHandler.CreateOrder(1);
 
             io.Verify(x => x.Output("Please input Your Name: "), Times.Exactly(2));
         }
@@ -120,7 +120,7 @@ namespace ToyBlockFactoryTests
             };
 
             var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
-            var order = orderHandler.CreateOrder();
+            var order = orderHandler.CreateOrder(1);
 
             io.Verify(x => x.Output("Please input Your Address: "), Times.Exactly(2));
         }
