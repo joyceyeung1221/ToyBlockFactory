@@ -11,51 +11,47 @@ namespace ToyBlockFactory
             var colors = orderItems.GetAllColors();
             var blocks = orderItems.GetAllShapes();
 
-            var stringToPrint = ConstructOrderString(orderItems, colors, blocks);
+            var stringToPrint = ConstructTableUsingCommaDelimiter(orderItems, colors, blocks);
+
             return stringToPrint;
         }
 
-        private string ConstructOrderString(OrderItemsCollection orderItems, List<Color> columnHeaders, List<Block> rowHeaders)
+        private string ConstructTableUsingCommaDelimiter(OrderItemsCollection orderItems, List<Color> colors, List<Block> blocks)
         {
-            var stringToPrint = "";
-            foreach (var block in rowHeaders)
+            var stringToPrint = GetRowHeader(colors);
+            foreach (var block in blocks)
             {
-                if (stringToPrint == "")
+                stringToPrint += FillRowWithBlockQuantityByColors(orderItems, colors, block);
+
+                if (block != blocks[^1])
                 {
-                    stringToPrint += GeneratePrintableColumnHeaders(columnHeaders);
+                    stringToPrint += "\n";
                 }
-
-                stringToPrint += block.Shape + "," + ConstructRowString(orderItems, columnHeaders, block);
             }
-            return RemoveNewLineAtTheEnd(stringToPrint);
+            return stringToPrint;
         }
 
-        private string RemoveNewLineAtTheEnd(string stringToPrint)
+        private string GetRowHeader(List<Color> colors)
         {
-            return stringToPrint.Remove(stringToPrint.Length - 1);
-        }
-
-        private string GeneratePrintableColumnHeaders(List<Color> columnHeaders)
-        {
-            var stringToExtract = " ,";
-            foreach(var color in columnHeaders)
+            var stringToPrint = " ,";
+            foreach(var color in colors)
             {
-                stringToExtract += color.Name;
-                stringToExtract += color != columnHeaders[^1] ? "," : "\n";
+                stringToPrint += color.Name;
+                stringToPrint += color != colors[^1] ? "," : "\n";
             }
-            return stringToExtract;
+            return stringToPrint;
         }
 
-        private string ConstructRowString(OrderItemsCollection orderItems, List<Color> columnHeaders, Block block)
+        private string FillRowWithBlockQuantityByColors(OrderItemsCollection orderItems, List<Color> colors, Block block)
         {
-            string rowToPrint = "";
-            foreach (var columnHeader in columnHeaders)
+            string stringToPrint = block.Shape + ",";
+            foreach (var color in colors)
             {
-                var quantity = orderItems.GetQuantityByShapeAndColor(block, columnHeader);
-                rowToPrint += (quantity == 0 ? "-" : quantity.ToString());
-                rowToPrint += (columnHeader == columnHeaders[^1] ? "\n" : ",");
+                var quantity = orderItems.GetQuantityByShapeAndColor(block, color);
+                stringToPrint +=  (quantity == 0 ? "-" : quantity.ToString());
+                stringToPrint += (color == colors[^1] ? "" : ",");
             }
-            return rowToPrint;
+            return stringToPrint;
         }
     }
 }

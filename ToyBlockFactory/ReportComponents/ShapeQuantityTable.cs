@@ -9,41 +9,38 @@ namespace ToyBlockFactory
         public string GenerateString(OrderItemsCollection orderItems)
         {
             var blocks = orderItems.GetAllShapes();
-            var stringToPrint = ConstructQuantityString(orderItems, blocks);
-            return RemoveNewLineAtTheEnd(stringToPrint);
+            var stringToPrint = ConstructTableUsingCommaDelimiter(orderItems, blocks);
+            return stringToPrint;
         }
 
-
-        private string RemoveNewLineAtTheEnd(string stringToPrint)
+        private string ConstructTableUsingCommaDelimiter(OrderItemsCollection orderItems, List<Block> blocks)
         {
-            return stringToPrint.Remove(stringToPrint.Length - 1);
-        }
+            var stringToPrint = GetRowHeader();
 
-        private string ConstructQuantityString(OrderItemsCollection orderItems, List<Block> rowHeaders)
-        {
-            var stringToPrint = "";
-            foreach (var block in rowHeaders)
+            foreach (var block in blocks)
             {
-                if (stringToPrint == "")
+                stringToPrint += FillRowWithBlockQuantity(orderItems, block);
+
+                if (block != blocks[^1])
                 {
-                    stringToPrint += " ,Quantity\n";
+                    stringToPrint += "\n";
                 }
-
-                stringToPrint += block.Shape + "," + ConstructRowString(orderItems, block);
-
             }
             return stringToPrint;
         }
 
-
-
-        private string ConstructRowString(OrderItemsCollection orderItems, Block rowHeader)
+        private string GetRowHeader()
         {
-            string rowToPrint = "";
-            var quantity = orderItems.GetQuantityByShape(rowHeader);
-            rowToPrint += (quantity == 0 ? "-" : quantity.ToString()) + "\n";
+            return " ,Quantity\n";
+        }
 
-            return rowToPrint;
+        private string FillRowWithBlockQuantity(OrderItemsCollection orderItems, Block block)
+        {
+            string stringToPrint = block.Shape + ",";
+            var quantity = orderItems.GetQuantityByShape(block);
+            stringToPrint += (quantity == 0 ? "-" : quantity.ToString());
+
+            return stringToPrint;
         }
     }
 }
