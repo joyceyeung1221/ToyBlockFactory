@@ -18,7 +18,7 @@ namespace ToyBlockFactoryTests
             var orderItems = new List<OrderItem>();
             var orderItemCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
-            var order = new Order(1, date, customer, orderItemCollection);
+            var order = new Order(date, customer, orderItemCollection);
 
             var orderSummary = new OrderSummary();
             var result = orderSummary.GenerateString(order);

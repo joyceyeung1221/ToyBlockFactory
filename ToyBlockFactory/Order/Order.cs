@@ -13,12 +13,12 @@ namespace ToyBlockFactory
 
         private static int lastOrderNumber = 0;
 
-        public Order(int orderNumber, DateTime dueDate, Customer customer, OrderItemsCollection orderItems)
+        public Order(DateTime dueDate, Customer customer, OrderItemsCollection orderItems)
         {
             DueDate = dueDate;
             Customer = customer;
             OrderItems = orderItems;
-            OrderNumber = orderNumber;
+            OrderNumber = 1;
         }
     }
 }

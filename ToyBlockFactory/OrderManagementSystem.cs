@@ -8,19 +8,17 @@ namespace ToyBlockFactory
         private IOrderHandler _orderHandler;
         private IPresenter _presenter;
         private List<Report> _listOfReports;
-        private int _lastOrderNumber;
 
         public OrderManagementSystem(IOrderHandler orderHandler, IPresenter presenter, List<Report> listOfReports)
         {
             _orderHandler = orderHandler;
             _presenter = presenter;
             _listOfReports = listOfReports;
-            _lastOrderNumber = 0;
         }
 
         public void Run()
         {
-            var order = _orderHandler.CreateOrder(_lastOrderNumber+1);
+            var order = _orderHandler.CreateOrder();
             foreach(var report in _listOfReports)
             {
                 _presenter.Print(report.GenerateString(order));

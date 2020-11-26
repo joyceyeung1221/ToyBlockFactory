@@ -38,7 +38,7 @@ namespace ToyBlockFactoryTests
             var orderItemsCollection = new OrderItemsCollection(orderItems);
             var date = new DateTime(2019, 01, 19);
 
-            var order = new Order(1, date, customer, orderItemsCollection);
+            var order = new Order(date, customer, orderItemsCollection);
             var report = new InvoiceReport();
 
             var result = report.GenerateString(order);
