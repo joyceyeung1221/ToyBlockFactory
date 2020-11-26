@@ -10,9 +10,6 @@ namespace ToyBlockFactory
         public OrderItemsCollection OrderItems { get; private set; }
         public int OrderNumber { get; private set; }
         
-
-        private static int lastOrderNumber = 0;
-
         public Order(int orderNumber, DateTime dueDate, Customer customer, OrderItemsCollection orderItems)
         {
             DueDate = dueDate;
