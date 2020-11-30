@@ -10,6 +10,7 @@ namespace ToyBlockFactory
         {
             var blocks = orderItems.GetAllShapes();
             var stringToPrint = ConstructTableUsingCommaDelimiter(orderItems, blocks);
+
             return stringToPrint;
         }
 
