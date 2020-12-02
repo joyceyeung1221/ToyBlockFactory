@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public class ConsoleIO : IInputOutput
+    public class ConsoleIO : IInputOutput , IReportPrinter
     {
         public ConsoleIO()
         {
@@ -15,6 +15,11 @@ namespace ToyBlockFactory
         public void Output(string text)
         {
             Console.WriteLine(text);
+        }
+
+        public void Print(string text)
+        {
+            Output(text);
         }
     }
 }

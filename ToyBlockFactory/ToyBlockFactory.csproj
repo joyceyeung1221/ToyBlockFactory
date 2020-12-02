@@ -9,6 +9,7 @@
     <Folder Include="Reports\" />
     <Folder Include="Order\" />
     <Folder Include="Interface\" />
+    <Folder Include="Factory\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConsoleTables" Version="2.4.2" />

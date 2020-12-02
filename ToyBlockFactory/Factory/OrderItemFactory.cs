@@ -11,8 +11,8 @@ namespace ToyBlockFactory
         {
             _colors = new List<Color>
             {
-                new Color("Yellow", (decimal)0.00),
                 new Color("Blue", (decimal)0.00),
+                new Color("Yellow", (decimal)0.00),
                 new Color("Red", (decimal)1.00)
             };
         }

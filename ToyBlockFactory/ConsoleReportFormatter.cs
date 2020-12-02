@@ -4,7 +4,7 @@ using ToyBlockFactory.Reports.ReportComponents;
 
 namespace ToyBlockFactory
 {
-    public class ConsoleReportFormatter
+    public class ConsoleReportFormatter : IReportFormatter
     {
         public ConsoleReportFormatter()
         {

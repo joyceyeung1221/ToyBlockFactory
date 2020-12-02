@@ -7,18 +7,14 @@ namespace ToyBlockFactory
     {
         static void Main(string[] args)
         {
-            //var orderItemsList = new OrderItemFactory().CreateOrderItems();
+            var orderItemsList = new OrderItemFactory().CreateOrderItems();
+            var reportFactory = new ReportFactory();
+            var io = new ConsoleIO();
+            IReportPrinter printer = (IReportPrinter)io;
+            var reportOutput = new ReportOutput(new ConsoleReportFormatter(), printer);
 
-            //var listOfReports = new List<Report>
-            //{
-            //    new InvoiceReport(),
-            //    new CuttingListReport(),
-            //    new PaintingReport()
-            //};
-
-            //var io = new ConsoleIO();
-            //var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), new ConsolePresenter(io), listOfReports);
-            //managementSystem.Run();
+            var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), reportOutput, reportFactory);
+            managementSystem.Run();
         }
     }
 }
