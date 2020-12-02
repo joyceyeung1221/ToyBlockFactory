@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ToyBlockFactory.Reports.ReportComponents
+namespace ToyBlockFactory
 {
     public class ReportTable
     {

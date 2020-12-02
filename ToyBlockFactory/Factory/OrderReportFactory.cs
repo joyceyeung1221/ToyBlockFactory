@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class ReportFactory
+    public class OrderReportFactory
     {
-        public ReportFactory()
+        public OrderReportFactory()
         {
         }
 

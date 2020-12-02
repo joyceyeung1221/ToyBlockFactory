@@ -14,8 +14,8 @@ namespace ToyBlockFactory
 
         public void Print(OrderReport orderReport)
         {
-            var reportInString = _formatter.ConvertToString(orderReport);
-            _printer.Print(reportInString);
+            var output = _formatter.ConvertToString(orderReport);
+            _printer.Print(output);
         }
     }
 }

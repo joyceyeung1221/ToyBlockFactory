@@ -8,7 +8,7 @@ namespace ToyBlockFactory
         static void Main(string[] args)
         {
             var orderItemsList = new OrderItemFactory().CreateOrderItems();
-            var reportFactory = new ReportFactory();
+            var reportFactory = new OrderReportFactory();
             var io = new ConsoleIO();
             IReportPrinter printer = (IReportPrinter)io;
             var reportOutput = new ReportOutput(new ConsoleReportFormatter(), printer);

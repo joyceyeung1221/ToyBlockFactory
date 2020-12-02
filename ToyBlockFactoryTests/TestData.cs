@@ -6,22 +6,42 @@ namespace ToyBlockFactoryTests
 {
     public class TestData
     {
+
+        public static List<Block> Blocks = GetBlocks();
+        public static List<Color> Colors = GetColors();
         public static OrderItemsCollection orderItemsWithThreeColorsThreeShapes = GenerateOrderItems();
         public static OrderItemsCollection orderItemsWithTwoColorsTwoShapes = GenerateOrderItemsWithTwoColorsTwoShapes();
 
+
+
+
+        private static List<Color> GetColors()
+        {
+            return new List<Color>
+            {
+                new Color("Red", (decimal)1.00),
+                new Color("Yellow", (decimal)0.00),
+                new Color("Blue", (decimal)0.00)
+            };
+        }
+
+        private static List<Block> GetBlocks()
+        {
+            return new List<Block>
+            {
+
+                new Block("Circle", (decimal)3.00),
+                new Block("Square", (decimal)1.00),
+                new Block("Triangle", (decimal)2.00)
+            };
+        }
+
         private static OrderItemsCollection GenerateOrderItems()
         {
-            var colors = new List<Color>
-            {
-                new Color("Red",(decimal)1.00),
-                new Color("Yellow",(decimal)0.00),
-                new Color("Blue",(decimal)0.00)
-            };
-
-            var item1 = new OrderItem(new Block(Shape.Circle), colors[0]);
-            var item2 = new OrderItem(new Block(Shape.Circle), colors[1]);
-            var item3 = new OrderItem(new Block(Shape.Square), colors[2]);
-            var item4 = new OrderItem(new Block(Shape.Triangle), colors[1]);
+            var item1 = new OrderItem(Blocks[0], Colors[0]);
+            var item2 = new OrderItem(Blocks[0], Colors[1]);
+            var item3 = new OrderItem(Blocks[1], Colors[2]);
+            var item4 = new OrderItem(Blocks[2], Colors[1]);
             item1.SetQuantity(2);
             item2.SetQuantity(3);
             item3.SetQuantity(1);
@@ -37,14 +57,8 @@ namespace ToyBlockFactoryTests
 
         private static OrderItemsCollection GenerateOrderItemsWithTwoColorsTwoShapes()
         {
-            var colors = new List<Color>
-            {
-                new Color("Yellow",(decimal)0.00),
-                new Color("Blue",(decimal)0.00)
-            };
-
-            var item1 = new OrderItem(new Block(Shape.Square), colors[0]);
-            var item2 = new OrderItem(new Block(Shape.Triangle), colors[1]);
+            var item1 = new OrderItem(Blocks[1], Colors[1]);
+            var item2 = new OrderItem(Blocks[2], Colors[2]);
             item1.SetQuantity(2);
             item2.SetQuantity(3);
 

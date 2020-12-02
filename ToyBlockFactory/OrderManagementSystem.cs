@@ -7,10 +7,10 @@ namespace ToyBlockFactory
     {
         private IOrderHandler _orderHandler;
         private ReportOutput _reportOutput;
-        private ReportFactory _reportFactory;
+        private OrderReportFactory _reportFactory;
         private int _lastOrderNumber;
 
-        public OrderManagementSystem(IOrderHandler orderHandler, ReportOutput reportOutput, ReportFactory reportFactory)
+        public OrderManagementSystem(IOrderHandler orderHandler, ReportOutput reportOutput, OrderReportFactory reportFactory)
         {
             _orderHandler = orderHandler;
             _reportOutput = reportOutput;

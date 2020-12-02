@@ -22,8 +22,8 @@ namespace ToyBlockFactoryTests
                 .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
-            var color = new Color("Red", (decimal)1.00);
-            var block = new Block(Shape.Circle);
+            var color = TestData.Colors[0];
+            var block = TestData.Blocks[0];
             var listOfOptions = new List<OrderItem>
             {
                 new OrderItem(block, color)
@@ -55,8 +55,8 @@ namespace ToyBlockFactoryTests
                 .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
-            var color = new Color("Red", (decimal)1.00);
-            var block = new Block(Shape.Circle);
+            var color = TestData.Colors[0];
+            var block = TestData.Blocks[0];
             var listOfOptions = new List<OrderItem>
             {
                 new OrderItem(block, color)
@@ -86,8 +86,8 @@ namespace ToyBlockFactoryTests
                 .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
-            var color = new Color("Red", (decimal)1.00);
-            var block = new Block(Shape.Circle);
+            var color = TestData.Colors[0];
+            var block = TestData.Blocks[0];
             var listOfOptions = new List<OrderItem>
             {
                 new OrderItem(block, color)
@@ -115,8 +115,8 @@ namespace ToyBlockFactoryTests
                 .Returns(_testDueDate.ToString("dd MMM yyyy"))
                 .Returns("1");
 
-            var color = new Color("Red", (decimal)1.00);
-            var block = new Block(Shape.Circle);
+            var color = TestData.Colors[0];
+            var block = TestData.Blocks[0];
             var listOfOptions = new List<OrderItem>
             {
                 new OrderItem(block, color)
