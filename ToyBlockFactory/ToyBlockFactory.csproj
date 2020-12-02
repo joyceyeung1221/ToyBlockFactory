@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Reports\" />
-    <Folder Include="ReportComponents\" />
     <Folder Include="Order\" />
     <Folder Include="Interface\" />
   </ItemGroup>

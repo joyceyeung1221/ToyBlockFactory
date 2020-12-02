@@ -1,19 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
+using ToyBlockFactory.Reports.ReportComponents;
+
 namespace ToyBlockFactory
 {
-    public abstract class Report
+    public abstract class OrderReport
     {
         protected string _reportName;
-        protected ITable _table;
-        protected Header _header;
+        protected string _title;
+        protected ReportTable _table;
         protected OrderSummary _orderSummary;
 
-        public Report()
+        public OrderReport(Order order)
         {
-            _header = new Header();
-            _orderSummary = new OrderSummary();
+            _orderSummary = new OrderSummary(order);
         }
 
-        public abstract string GenerateString(Order order);
+        public string GetTitle()
+        {
+            return _title;
+        }
+
+        public OrderSummary GetOrderSummary()
+        {
+            return _orderSummary;
+        }
+
+        public ReportTable GetTable()
+        {
+            return _table;
+        }
     }
 }

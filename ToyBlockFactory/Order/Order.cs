@@ -10,11 +10,15 @@ namespace ToyBlockFactory
         public OrderItemsCollection OrderItems { get; private set; }
         public int OrderNumber { get; private set; }
         
-        public Order(int orderNumber, DateTime dueDate, Customer customer, OrderItemsCollection orderItems)
+        public Order(DateTime dueDate, Customer customer, OrderItemsCollection orderItems)
         {
             DueDate = dueDate;
             Customer = customer;
             OrderItems = orderItems;
+        }
+
+        public void AssignOrderNumber(int orderNumber)
+        {
             OrderNumber = orderNumber;
         }
     }
