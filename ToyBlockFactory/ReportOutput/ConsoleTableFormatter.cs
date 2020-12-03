@@ -26,7 +26,7 @@ namespace ToyBlockFactory
                 table.AddRow(tableRow);
             }
 
-            return table.ToString();
+            return table.ToString() + "\n";
         }
     }
 }
