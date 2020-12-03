@@ -1,21 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ToyBlockFactory
 {
-    public class CuttingListReport : Report
+    public class CuttingListReport : OrderReport
     {
-        public CuttingListReport()
+        private const string ColumnHeader = "Quantity";
+
+        public CuttingListReport(Order order) : base(order)
         {
-            _reportName = "Cutting List";
-            _table = new ShapeQuantityTable();
+            _title = "Cutting List";
+            _table = GenerateShapeQuanitityTable(order.OrderItems);
         }
 
-        public override string GenerateString(Order order)
+        private ReportTable GenerateShapeQuanitityTable(OrderItemsCollection orderItems)
         {
-            var stringToOutput = _header.GenerateString(_reportName) + "\n" +
-                _orderSummary.GenerateString(order) + "\n" +
-                _table.GenerateString(order.OrderItems);
+            var blocks = orderItems.GetAllShapes();
+            var table = new ReportTable(new List<string> { ColumnHeader });
+            ConstructTableBody(table, orderItems, blocks);
 
-            return stringToOutput;
+            return table;
+        }
+
+        private void ConstructTableBody(ReportTable table, OrderItemsCollection orderItems, List<Block> blocks)
+        {
+            foreach (var block in blocks)
+            {
+                var quantities = GetQuantities(orderItems, block);
+                table.AddRow(block.Shape.ToString(), quantities);
+            }
+        }
+
+        private List<int> GetQuantities(OrderItemsCollection orderItems, Block block)
+        {
+            var quantities = new List<int>();
+            quantities.Add(orderItems.GetQuantityByShape(block));
+
+            return quantities;
         }
     }
 }

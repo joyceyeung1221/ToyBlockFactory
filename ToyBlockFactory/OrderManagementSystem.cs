@@ -5,24 +5,44 @@ namespace ToyBlockFactory
 {
     public class OrderManagementSystem
     {
-        private IOrderHandler _orderHandler;
-        private IPresenter _presenter;
-        private List<Report> _listOfReports;
+        private ICreateOrder _orderTaker;
+        private ReportOutput _reportOutput;
+        private OrderReportFactory _reportFactory;
+        private int _lastOrderNumber;
 
-        public OrderManagementSystem(IOrderHandler orderHandler, IPresenter presenter, List<Report> listOfReports)
+        public OrderManagementSystem(ICreateOrder orderTaker, ReportOutput reportOutput, OrderReportFactory reportFactory)
         {
-            _orderHandler = orderHandler;
-            _presenter = presenter;
-            _listOfReports = listOfReports;
+            _orderTaker = orderTaker;
+            _reportOutput = reportOutput;
+            _reportFactory = reportFactory;
+            _lastOrderNumber = 0;
         }
 
         public void Run()
         {
-            var order = _orderHandler.CreateOrder();
-            foreach(var report in _listOfReports)
+            var order = _orderTaker.CreateOrder();
+            AssignOrderNumber(order);
+            var reports = _reportFactory.CreateReports(order);
+            PrintReports(reports);
+        }
+
+        private void PrintReports(List<OrderReport> reports)
+        {
+            foreach (var report in reports)
             {
-                _presenter.Print(report.GenerateString(order));
+                _reportOutput.Print(report);
             }
+        }
+
+        private void AssignOrderNumber(Order order)
+        {
+            order.SetOrderNumber(_lastOrderNumber + 1);
+            UpdateLastOrderNumber();
+        }
+
+        private void UpdateLastOrderNumber()
+        {
+            _lastOrderNumber += 1;
         }
     }
 }

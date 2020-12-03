@@ -22,7 +22,6 @@ namespace ToyBlockFactory
             colors = RemoveDuplicate(colors);
             colors.Sort((x, y) => x.Name.CompareTo(y.Name));
 
-
             return colors;
         }
 

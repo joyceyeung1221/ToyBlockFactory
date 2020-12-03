@@ -1,9 +1,8 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public interface IInputOutput
+    public interface IInputOutput : IReportPrinter
     {
         string Input();
-        void Output(string text);
     }
 }

@@ -6,10 +6,6 @@ namespace ToyBlockFactoryTests
 {
     public class OrderItemFactoryTest
     {
-        public OrderItemFactoryTest()
-        {
-        }
-
         [Fact]
         public void ShouldReturnAListConsistsNineProductItems()
         {

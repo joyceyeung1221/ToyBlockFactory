@@ -5,26 +5,14 @@ namespace ToyBlockFactory
 {
     public class Block
     {
-        public Shape Shape { get; private set; }
+        public string Shape { get; private set; }
         public decimal Price { get; private set; }
 
-        public Block(Shape shape)
+        public Block(string shape, decimal price)
         {
             Shape = shape;
-            Price = AssignPriceByShape(shape);
+            Price = price;
 
-        }
-
-        private decimal AssignPriceByShape(Shape shape)
-        {
-            var priceList = new Dictionary<Shape, decimal>
-            {
-                { Shape.Circle, (decimal)3.00 },
-                { Shape.Square, (decimal)1.00 },
-                { Shape.Triangle, (decimal)2.00 }
-            };
-
-            return priceList[shape];
         }
     }
 }

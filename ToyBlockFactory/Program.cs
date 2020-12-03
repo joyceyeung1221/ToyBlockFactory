@@ -8,16 +8,13 @@ namespace ToyBlockFactory
         static void Main(string[] args)
         {
             var orderItemsList = new OrderItemFactory().CreateOrderItems();
-
-            var listOfReports = new List<Report>
-            {
-                new InvoiceReport(),
-                new CuttingListReport(),
-                new PaintingReport()
-            };
-
+            var orderInputValidator = new OrderInputValidator();
             var io = new ConsoleIO();
-            var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), new ConsolePresenter(io), listOfReports);
+            var orderTaker = new ConsoleOrderTaker(io, orderItemsList, orderInputValidator);
+            var reportOutput = new ReportOutput(new ConsoleReportParser(new ConsoleTableParser()), io);
+            var reportFactory = new OrderReportFactory();
+
+            var managementSystem = new OrderManagementSystem(orderTaker, reportOutput, reportFactory);
             managementSystem.Run();
         }
     }

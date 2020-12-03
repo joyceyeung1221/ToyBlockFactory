@@ -1,21 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ToyBlockFactory
 {
-    public class PaintingReport : Report
+    public class PaintingReport : OrderReport
     {
-        public PaintingReport()
+        public PaintingReport(Order order) : base(order)
         {
-            _reportName = "Painting Report";
-            _table = new OrderTable();
-        }
-
-        public override string GenerateString(Order order)
-        {
-            var stringToOutput = _header.GenerateString(_reportName) + "\n" +
-                _orderSummary.GenerateString(order) + "\n" +
-                _table.GenerateString(order.OrderItems);
-
-            return stringToOutput;
+            _title = "Painting Report";
+            _table = new OrderTableGenerator().Generate(order.OrderItems);
         }
     }
 }
