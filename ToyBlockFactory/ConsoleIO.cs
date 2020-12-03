@@ -3,16 +3,13 @@ namespace ToyBlockFactory
 {
     public class ConsoleIO : IInputOutput
     {
-        public ConsoleIO()
-        {
-        }
 
         public string Input()
         {
             return Console.ReadLine();
         }
 
-        public void Output(string text)
+        public void Print(string text)
         {
             Console.WriteLine(text);
         }

@@ -7,21 +7,33 @@ namespace ToyBlockFactoryTests
 {
     public class OrderItemsCollectionTest
     {
+        private Color _red;
+        private Color _yellow;
+        private Color _blue;
+        private Block _circle;
+        private Block _sqaure;
+        private Block _triangle;
+
         public OrderItemsCollectionTest()
         {
+            _red = new Color("Red", (decimal)1.00);
+            _yellow = new Color("Yellow", (decimal)0.00);
+            _blue = new Color("Blue", (decimal)0.00);
+
+            _circle = new Block("Circle", (decimal)3.00);
+            _sqaure = new Block("Square", (decimal)1.00);
+            _triangle = new Block("Triangle", (decimal)2.00);
+
         }
 
         [Fact]
         public void ShouldReturnAListOfColorsWithoutDuplicateColors()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var item1 = new OrderItem(new Block(Shape.Circle), yellow);
-            var item2 = new OrderItem(new Block(Shape.Circle), red);
-            var item3 = new OrderItem(new Block(Shape.Square), red);
-            var item4 = new OrderItem(new Block(Shape.Square), yellow);
-            var item5 = new OrderItem(new Block(Shape.Triangle), yellow);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _red);
+            var item4 = new OrderItem(_sqaure, _yellow);
+            var item5 = new OrderItem(_triangle, _yellow);
             var orderItems = new List<OrderItem>
             {
                 item1,item2,item3,item4,item5
@@ -31,24 +43,17 @@ namespace ToyBlockFactoryTests
             var result = orderItemsCollection.GetAllColors();
 
             Assert.Equal(2, result.Count);
-            Assert.Contains(yellow, result);
-            Assert.Contains(red, result);
+            Assert.Contains(_yellow, result);
+            Assert.Contains(_red, result);
         }
 
         [Fact]
         public void ShouldReturnAListOfBlocksWithoutDuplicateBlocks()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var circle = new Block(Shape.Circle);
-            var sqaure = new Block(Shape.Square);
-            var triangle = new Block(Shape.Triangle);
-
-            var item1 = new OrderItem(circle, yellow);
-            var item2 = new OrderItem(circle, red);
-            var item3 = new OrderItem(sqaure, yellow);
-            var item4 = new OrderItem(circle, yellow);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _yellow);
+            var item4 = new OrderItem(_circle, _yellow);
 
             var orderItems = new List<OrderItem>
             {
@@ -59,25 +64,18 @@ namespace ToyBlockFactoryTests
             var result = orderItemsCollection.GetAllShapes();
 
             Assert.Equal(2, result.Count);
-            Assert.Contains(circle, result);
-            Assert.Contains(sqaure, result);
+            Assert.Contains(_circle, result);
+            Assert.Contains(_sqaure, result);
         }
 
         [Fact]
         public void ShouldReturnTotalNumberOfTheGivenShape()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var circle = new Block(Shape.Circle);
-            var sqaure = new Block(Shape.Square);
-            var triangle = new Block(Shape.Triangle);
-
-            var item1 = new OrderItem(circle, yellow);
-            var item2 = new OrderItem(circle, red);
-            var item3 = new OrderItem(sqaure, yellow);
-            var item4 = new OrderItem(triangle, yellow);
-            var item5 = new OrderItem(triangle, red);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _yellow);
+            var item4 = new OrderItem(_triangle, _yellow);
+            var item5 = new OrderItem(_triangle, _red);
             item1.SetQuantity(2);
             item2.SetQuantity(3);
             item3.SetQuantity(1);
@@ -90,25 +88,18 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            Assert.Equal(5, orderItemsCollection.GetQuantityByShape(circle));
-            Assert.Equal(4, orderItemsCollection.GetQuantityByShape(triangle));
+            Assert.Equal(5, orderItemsCollection.GetQuantityByShape(_circle));
+            Assert.Equal(4, orderItemsCollection.GetQuantityByShape(_triangle));
         }
 
         [Fact]
         public void ShouldReturnTotalNumberOfTheGivenColor()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var circle = new Block(Shape.Circle);
-            var sqaure = new Block(Shape.Square);
-            var triangle = new Block(Shape.Triangle);
-
-            var item1 = new OrderItem(circle, yellow);
-            var item2 = new OrderItem(circle, red);
-            var item3 = new OrderItem(sqaure, yellow);
-            var item4 = new OrderItem(triangle, yellow);
-            var item5 = new OrderItem(triangle, red);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _yellow);
+            var item4 = new OrderItem(_triangle, _yellow);
+            var item5 = new OrderItem(_triangle, _red);
             item1.SetQuantity(2);
             item2.SetQuantity(4);
             item3.SetQuantity(1);
@@ -121,25 +112,18 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            Assert.Equal(5, orderItemsCollection.GetQuantityByColor(yellow));
-            Assert.Equal(6, orderItemsCollection.GetQuantityByColor(red));
+            Assert.Equal(5, orderItemsCollection.GetQuantityByColor(_yellow));
+            Assert.Equal(6, orderItemsCollection.GetQuantityByColor(_red));
         }
 
         [Fact]
         public void ShouldReturnTotalNumberOfTheGivenColorAndShape()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var circle = new Block(Shape.Circle);
-            var sqaure = new Block(Shape.Square);
-            var triangle = new Block(Shape.Triangle);
-
-            var item1 = new OrderItem(circle, yellow);
-            var item2 = new OrderItem(circle, red);
-            var item3 = new OrderItem(sqaure, yellow);
-            var item4 = new OrderItem(triangle, yellow);
-            var item5 = new OrderItem(triangle, red);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _yellow);
+            var item4 = new OrderItem(_triangle, _yellow);
+            var item5 = new OrderItem(_triangle, _red);
             item1.SetQuantity(2);
             item2.SetQuantity(4);
             item3.SetQuantity(1);
@@ -152,24 +136,17 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            Assert.Equal(4, orderItemsCollection.GetQuantityByShapeAndColor(circle,red));
+            Assert.Equal(4, orderItemsCollection.GetQuantityByShapeAndColor(_circle, _red));
         }
 
         [Fact]
         public void ShouldReturnNumberOfItemsInTheCollections()
         {
-            var yellow = new Color("Yellow", (decimal)1.00);
-            var red = new Color("Red", (decimal)1.00);
-
-            var circle = new Block(Shape.Circle);
-            var sqaure = new Block(Shape.Square);
-            var triangle = new Block(Shape.Triangle);
-
-            var item1 = new OrderItem(circle, yellow);
-            var item2 = new OrderItem(circle, red);
-            var item3 = new OrderItem(sqaure, yellow);
-            var item4 = new OrderItem(triangle, yellow);
-            var item5 = new OrderItem(triangle, red);
+            var item1 = new OrderItem(_circle, _yellow);
+            var item2 = new OrderItem(_circle, _red);
+            var item3 = new OrderItem(_sqaure, _yellow);
+            var item4 = new OrderItem(_triangle, _yellow);
+            var item5 = new OrderItem(_triangle, _red);
             item1.SetQuantity(2);
             item2.SetQuantity(4);
             item3.SetQuantity(1);
