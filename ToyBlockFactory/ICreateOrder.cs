@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public interface IOrderHandler
+    public interface ICreateOrder
     {
         Order CreateOrder();
     }

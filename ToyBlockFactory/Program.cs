@@ -11,9 +11,9 @@ namespace ToyBlockFactory
             var reportFactory = new OrderReportFactory();
             var io = new ConsoleIO();
             IReportPrinter printer = (IReportPrinter)io;
-            var reportOutput = new ReportOutput(new ConsoleReportFormatter(), printer);
+            var reportOutput = new ReportOutput(new ConsoleReportFormatter(new ConsoleTableFormatter()), printer);
 
-            var managementSystem = new OrderManagementSystem(new ConsoleOrderHandler(io, orderItemsList), reportOutput, reportFactory);
+            var managementSystem = new OrderManagementSystem(new ConsoleOrderTaker(io, orderItemsList), reportOutput, reportFactory);
             managementSystem.Run();
         }
     }

@@ -1,12 +1,16 @@
 ﻿using System;
+using ConsoleTables;
 using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
     public class ConsoleReportFormatter : IReportFormatter
     {
-        public ConsoleReportFormatter()
+        private ITableFormatter _tableFormatter;
+
+        public ConsoleReportFormatter(ITableFormatter tableFormatter)
         {
+            _tableFormatter = tableFormatter;
         }
 
         public string ConvertToString(OrderReport report)
@@ -34,18 +38,7 @@ namespace ToyBlockFactory
 
         private string ConvertTable(ReportTable table)
         {
-            var stringToOutput = " ," + String.Join(",", table.Header) + "\n";
-            foreach (var row in table.Body)
-            {
-                stringToOutput += row.Key + ",";
-                foreach (var number in row.Value)
-                {
-                    stringToOutput += (number == 0 ? "-" : number.ToString()) + ",";
-                }
-                stringToOutput = stringToOutput.Remove(stringToOutput.Length - 1, 1) + "\n";
-            }
-
-            return stringToOutput;
+            return _tableFormatter.ConvertTable(table);
         }
 
         private string ConvertItemsList(List<InvoiceItem> itemsList)

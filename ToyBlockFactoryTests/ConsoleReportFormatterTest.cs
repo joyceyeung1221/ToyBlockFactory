@@ -10,7 +10,7 @@ namespace ToyBlockFactoryTests
 
         public ConsoleReportFormatterTest()
         {
-            _formatter = new ConsoleReportFormatter();
+            _formatter = new ConsoleReportFormatter(new TestTableFormatter());
         }
 
         [Fact]
@@ -63,6 +63,25 @@ namespace ToyBlockFactoryTests
                             "Red color surcharges,2 @ $1 ppi = $2\n";
 
             Assert.Equal(expected, result);
+        }
+    }
+
+    public class TestTableFormatter : ITableFormatter
+    {
+        public string ConvertTable(ReportTable table)
+        {
+            var stringToOutput = " ," + String.Join(",", table.Header) + "\n";
+            foreach (var row in table.Body)
+            {
+                stringToOutput += row.Key + ",";
+                foreach (var number in row.Value)
+                {
+                    stringToOutput += (number == 0 ? "-" : number.ToString()) + ",";
+                }
+                stringToOutput = stringToOutput.Remove(stringToOutput.Length - 1, 1) + "\n";
+            }
+
+            return stringToOutput;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
-    public class ConsoleOrderHandler : IOrderHandler
+    public class ConsoleOrderTaker : ICreateOrder
     {
         private IInputOutput _io;
         private List<OrderItem> _listOfOptions;
@@ -14,7 +14,7 @@ namespace ToyBlockFactory
         private int _minCharForName = 3;
         private int _minCharForAddress = 10;
 
-        public ConsoleOrderHandler(IInputOutput io, List<OrderItem> orderItemsList)
+        public ConsoleOrderTaker(IInputOutput io, List<OrderItem> orderItemsList)
         {
             _io = io;
             _listOfOptions = orderItemsList;

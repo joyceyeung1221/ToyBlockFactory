@@ -5,7 +5,6 @@ namespace ToyBlockFactory
 {
     public abstract class OrderReport
     {
-        protected string _reportName;
         protected string _title;
         protected ReportTable _table;
         protected OrderSummary _orderSummary;

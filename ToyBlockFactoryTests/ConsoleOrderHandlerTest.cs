@@ -29,7 +29,7 @@ namespace ToyBlockFactoryTests
                 new OrderItem(block, color)
             };
 
-            var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
+            var orderHandler = new ConsoleOrderTaker(io.Object, listOfOptions);
             var order = orderHandler.CreateOrder();
             order.AssignOrderNumber(1);
             var orderItems = order.OrderItems;
@@ -62,7 +62,7 @@ namespace ToyBlockFactoryTests
                 new OrderItem(block, color)
             };
 
-            var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
+            var orderHandler = new ConsoleOrderTaker(io.Object, listOfOptions);
             var order = orderHandler.CreateOrder();
             order.AssignOrderNumber(1);
             var expectedDate = DateTime.Today.AddDays(1);
@@ -93,7 +93,7 @@ namespace ToyBlockFactoryTests
                 new OrderItem(block, color)
             };
 
-            var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
+            var orderHandler = new ConsoleOrderTaker(io.Object, listOfOptions);
             var order = orderHandler.CreateOrder();
             order.AssignOrderNumber(1);
 
@@ -122,7 +122,7 @@ namespace ToyBlockFactoryTests
                 new OrderItem(block, color)
             };
 
-            var orderHandler = new ConsoleOrderHandler(io.Object, listOfOptions);
+            var orderHandler = new ConsoleOrderTaker(io.Object, listOfOptions);
             var order = orderHandler.CreateOrder();
             order.AssignOrderNumber(1);
 

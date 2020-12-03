@@ -5,12 +5,12 @@ namespace ToyBlockFactory
 {
     public class OrderManagementSystem
     {
-        private IOrderHandler _orderHandler;
+        private ICreateOrder _orderHandler;
         private ReportOutput _reportOutput;
         private OrderReportFactory _reportFactory;
         private int _lastOrderNumber;
 
-        public OrderManagementSystem(IOrderHandler orderHandler, ReportOutput reportOutput, OrderReportFactory reportFactory)
+        public OrderManagementSystem(ICreateOrder orderHandler, ReportOutput reportOutput, OrderReportFactory reportFactory)
         {
             _orderHandler = orderHandler;
             _reportOutput = reportOutput;
