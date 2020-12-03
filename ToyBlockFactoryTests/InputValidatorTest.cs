@@ -56,8 +56,8 @@ namespace ToyBlockFactoryTests
 
         [Theory]
         [InlineData("01/01/2020")]
-        [InlineData("Amy&")]
-        public void ShouldReturnFalse_WhenNameContainsSymbol(string userIncorrectInput)
+        [InlineData("111")]
+        public void ShouldReturnFalse_WhenNameDoesNotContainCharacter(string userIncorrectInput)
         {
             var result = _validator.IsValidName(userIncorrectInput);
 
