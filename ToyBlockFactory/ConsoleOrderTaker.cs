@@ -8,16 +8,17 @@ namespace ToyBlockFactory
     {
         private IInputOutput _io;
         private List<OrderItem> _listOfOptions;
+        private OrderInputValidator _orderInputValidator;
         private string _dateInputFormat = "dd MMM yyyy";
-        private int _minOrderInput = 0;
-        private int _maxOrderInput = 100;
-        private int _minCharForName = 3;
-        private int _minCharForAddress = 10;
+        private const string nameRequest = "Your Name";
+        private const string addressRequest = "Your Address";
+        private const string dueDateRequest = "Your Due Date in DD MMM YYYY format";
 
-        public ConsoleOrderTaker(IInputOutput io, List<OrderItem> orderItemsList)
+        public ConsoleOrderTaker(IInputOutput io, List<OrderItem> orderItemsList, OrderInputValidator orderInputValidator)
         {
             _io = io;
             _listOfOptions = orderItemsList;
+            _orderInputValidator = orderInputValidator;
         }
 
         public Order CreateOrder()
@@ -31,15 +32,15 @@ namespace ToyBlockFactory
 
         private Customer GetCustomer()
         {
-            var name = GetValidUserInput("Your Name", IsValidName);
-            var address = GetValidUserInput("Your Address", IsValidAddress);
+            var name = GetValidUserInput(nameRequest);
+            var address = GetValidUserInput(addressRequest);
 
             return new Customer(name, address);
         }
 
         private DateTime GetDueDate()
         {
-            string input = GetValidUserInput("Your Due Date in DD MMM YYYY format", IsValidDate);
+            string input = GetValidUserInput(dueDateRequest);
             return ConvertToDate(input);
         }
 
@@ -54,7 +55,7 @@ namespace ToyBlockFactory
             var orderItems = new List<OrderItem>();
             foreach(var orderItem in _listOfOptions)
             {
-                var input = GetValidUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s", IsValidQuantity);
+                var input = GetValidUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s");
                 var quantity = Int32.Parse(input);
                 if ( quantity > 0)
                 {
@@ -66,56 +67,31 @@ namespace ToyBlockFactory
             return orderItemsCollection;
         }
 
-        private string GetValidUserInput(string request, Func<string, bool> IsValidInput)
+        private string GetValidUserInput(string request)
         {
             string input;
             do
             {
-                _io.Output($"Please input {request}: ");
+                _io.Print($"Please input {request}: ");
                 input  = _io.Input();
-            } while (!IsValidInput(input));
+            } while (!IsValidOrderInput(input, request));
+
             return input;
         }
 
-        private bool IsValidDate(string input)
+        private bool IsValidOrderInput(string input, string request)
         {
-            DateTime date;
-            var IsInDateFormat = DateTime.TryParseExact(input, _dateInputFormat, null,
-               System.Globalization.DateTimeStyles.AllowWhiteSpaces,
-               out date);
-            if (IsInDateFormat)
+            switch (request)
             {
-                return date > DateTime.Today;
+                case nameRequest:
+                    return _orderInputValidator.IsValidName(input);
+                case addressRequest:
+                    return _orderInputValidator.IsValidAddress(input);
+                case dueDateRequest:
+                    return _orderInputValidator.IsValidDate(input);
+                default:
+                    return _orderInputValidator.IsValidQuantity(input);
             }
-            return false;
-        }
-
-        private bool IsValidName(string input)
-        {
-
-            Regex pattern = new Regex(@"[a-zA-Z]+?");
-            Match match = pattern.Match(input);
-            return match.Success && input.Length >= _minCharForName;
-        }
-
-        private bool IsValidAddress(string input)
-        {
-
-            Regex pattern = new Regex(@"[a-zA-Z0-9_][a-zA-Z0-9_ ,.]+?");
-            Match match = pattern.Match(input);
-
-            return match.Success && input.Length >= _minCharForAddress;
-        }
-
-        private bool IsValidQuantity(string input)
-        {
-            int quantity;
-            var IsInNumberFormat = Int32.TryParse(input, out quantity);
-            if (IsInNumberFormat)
-            {
-                return (quantity >= _minOrderInput && quantity < _maxOrderInput);
-            }
-            return false;
         }
     }
 }

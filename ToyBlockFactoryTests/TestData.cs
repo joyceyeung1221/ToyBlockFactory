@@ -80,7 +80,7 @@ namespace ToyBlockFactoryTests
         public static Order GetOrder()
         {
             var order = new Order(TestDate, TestCustomer, orderItemsWithThreeColorsThreeShapes);
-            order.AssignOrderNumber(1);
+            order.SetOrderNumber(1);
             return order;
         }
 

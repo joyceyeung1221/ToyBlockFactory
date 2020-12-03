@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public interface ITableFormatter
+    public interface ITableParser
     {
         string ConvertTable(ReportTable table);
     }

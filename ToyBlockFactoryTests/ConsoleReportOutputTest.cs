@@ -6,14 +6,10 @@ namespace ToyBlockFactoryTests
 {
     public class ConsoleReportOutputTest
     {
-        public ConsoleReportOutputTest()
-        {
-        }
-
         [Fact]
         public void ShouldConvertInvoiceReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportFormatter(new ConsoleTableFormatter());
+            var formatter = new ConsoleReportParser(new ConsoleTableParser());
             var report = new InvoiceReport(TestData.TestOrder);
             var result = formatter.ConvertToString(report);
 
@@ -40,7 +36,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertCuttingReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportFormatter(new ConsoleTableFormatter());
+            var formatter = new ConsoleReportParser(new ConsoleTableParser());
             var report = new CuttingListReport(TestData.TestOrder);
             var result = formatter.ConvertToString(report);
 

@@ -5,10 +5,6 @@ namespace ToyBlockFactory
 {
     public class OrderReportFactory
     {
-        public OrderReportFactory()
-        {
-        }
-
         public List<OrderReport> CreateReports(Order order)
         {
             return new List<OrderReport>

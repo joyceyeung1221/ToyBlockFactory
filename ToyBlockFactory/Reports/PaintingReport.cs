@@ -7,8 +7,8 @@ namespace ToyBlockFactory
     {
         public PaintingReport(Order order) : base(order)
         {
-            _table = new OrderTableGenerator().Generate(order.OrderItems);
             _title = "Painting Report";
+            _table = new OrderTableGenerator().Generate(order.OrderItems);
         }
     }
 }

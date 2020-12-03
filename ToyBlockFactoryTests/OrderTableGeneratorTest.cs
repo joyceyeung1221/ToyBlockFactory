@@ -8,10 +8,8 @@ namespace ToyBlockFactoryTests
 {
     public class OrderTableGeneratorTest
     {
-        private OrderItemsCollection _orderItems;
-
         [Fact]
-        public void ShouldFirstElementsOfTheListContainsThreeColors()
+        public void ShouldTableHeaderContainThreeColors_WhenOrderItemsWithThreeDiffererntColorsReceived()
         {
 
             var orderTable = new OrderTableGenerator();
@@ -27,7 +25,7 @@ namespace ToyBlockFactoryTests
         }
 
         [Fact]
-        public void ShouldFirstElementsOfTheListContainsTwoColors()
+        public void ShouldTableHeaderContainTwoColors_WhenOrderItemsWithTwoDiffererntColorsReceived()
         {
 
             var orderTable = new OrderTableGenerator();
@@ -42,7 +40,7 @@ namespace ToyBlockFactoryTests
         }
 
         [Fact]
-        public void ShouldContainThreeDataRowsPlusHeaderListForThreeShapesWithCorrectQuantity()
+        public void ShouldTableBodyContainThreeElmentsForThreeDifferntShapesWithCorrectQuantity()
         {
 
             var orderTable = new OrderTableGenerator();
@@ -59,7 +57,7 @@ namespace ToyBlockFactoryTests
         }
 
         [Fact]
-        public void ShouldContainTwoDataRowsPlusHeaderListForThreeShapesWithCorrectQuantity()
+        public void ShouldTableBodyContainTwoElmentsForTwoShapesWithCorrectQuantity()
         {
 
             var orderTable = new OrderTableGenerator();

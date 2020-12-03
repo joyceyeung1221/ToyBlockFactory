@@ -5,7 +5,6 @@ namespace ToyBlockFactory
 {
     public class OrderTableGenerator
     {
-
         public ReportTable Generate(OrderItemsCollection orderItems)
         {
             var colors = orderItems.GetAllColors();
@@ -34,7 +33,6 @@ namespace ToyBlockFactory
             {
                 var quantities = GetBlockQuantityByColors(orderItems, colors, block);
                 table.AddRow(block.Shape.ToString(), quantities);
-
             }
         }
 

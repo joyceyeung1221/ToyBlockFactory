@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using ConsoleTables;
 namespace ToyBlockFactory
 {
-    public class ConsoleTableFormatter : ITableFormatter
+    public class ConsoleTableParser : ITableParser
     {
-        public ConsoleTableFormatter()
-        {
-        }
-
         public string ConvertTable(ReportTable reportTable)
         {
             var header = new List<string>(reportTable.Header); 

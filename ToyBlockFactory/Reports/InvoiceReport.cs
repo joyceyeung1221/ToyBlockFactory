@@ -28,7 +28,6 @@ namespace ToyBlockFactory
             return itemsList;
         }
 
-
         private void AddColorRelatedInvoiceItems(OrderItemsCollection orderItems, List<InvoiceItem> itemsList)
         {
             var colors = orderItems.GetAllColors();
@@ -41,6 +40,7 @@ namespace ToyBlockFactory
                     var pricePerItem = color.Price;
                     var totalCost = quantity * color.Price;
                     var invoiceItem = new InvoiceItem(name, quantity, pricePerItem, totalCost);
+
                     itemsList.Add(invoiceItem);
                 }
             }

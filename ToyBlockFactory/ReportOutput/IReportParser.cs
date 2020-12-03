@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ToyBlockFactory
 {
-    public interface IReportFormatter
+    public interface IReportParser
     {
         string ConvertToString(OrderReport report);
     }

@@ -13,7 +13,6 @@ namespace ToyBlockFactory
             Header = header;
         }
 
-
         public void AddRow(string header, List<int> quantities)
         {
             Body.Add( header, quantities);

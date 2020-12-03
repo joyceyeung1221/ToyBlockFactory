@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class ConsoleReportFormatter : IReportFormatter
+    public class ConsoleReportParser : IReportParser
     {
-        private ITableFormatter _tableFormatter;
+        private ITableParser _tableParser;
 
-        public ConsoleReportFormatter(ITableFormatter tableFormatter)
+        public ConsoleReportParser(ITableParser tableParser)
         {
-            _tableFormatter = tableFormatter;
+            _tableParser = tableParser;
         }
 
         public string ConvertToString(OrderReport report)
@@ -38,7 +38,7 @@ namespace ToyBlockFactory
 
         private string ConvertTable(ReportTable table)
         {
-            return _tableFormatter.ConvertTable(table);
+            return _tableParser.ConvertTable(table);
         }
 
         private string ConvertItemsList(List<InvoiceItem> itemsList)

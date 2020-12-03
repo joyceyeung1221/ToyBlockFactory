@@ -4,14 +4,14 @@ using Xunit;
 
 namespace ToyBlockFactoryTests
 {
-    public class ConsoleReportFormatterTest
+    public class ConsoleReportParserTest
     {
-        private ConsoleReportFormatter formatter;
+        private ConsoleReportParser parser;
 
         [Fact]
         public void ShouldConvertNonTableDataInPaintingReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportFormatter(new EmptyTableFormatter());
+            var formatter = new ConsoleReportParser(new EmptyTableParser());
             var report = new PaintingReport(TestData.TestOrder);
             var result = formatter.ConvertToString(report);
 
@@ -25,7 +25,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertNonTableDataInInvoiceReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportFormatter(new EmptyTableFormatter());
+            var formatter = new ConsoleReportParser(new EmptyTableParser());
             var report = new InvoiceReport(TestData.TestOrder);
             var result = formatter.ConvertToString(report);
 
@@ -43,7 +43,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertNonTableDataInCuttingReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportFormatter(new EmptyTableFormatter());
+            var formatter = new ConsoleReportParser(new EmptyTableParser());
             var report = new CuttingListReport(TestData.TestOrder);
             var result = formatter.ConvertToString(report);
 
@@ -53,32 +53,9 @@ namespace ToyBlockFactoryTests
 
             Assert.Equal(expected, result);
         }
-
-
-
-
     }
 
-    public class TestTableFormatter : ITableFormatter
-    {
-        public string ConvertTable(ReportTable table)
-        {
-            var stringToOutput = " ," + String.Join(",", table.Header) + "\n";
-            foreach (var row in table.Body)
-            {
-                stringToOutput += row.Key + ",";
-                foreach (var number in row.Value)
-                {
-                    stringToOutput += (number == 0 ? "-" : number.ToString()) + ",";
-                }
-                stringToOutput = stringToOutput.Remove(stringToOutput.Length - 1, 1) + "\n";
-            }
-
-            return stringToOutput;
-        }
-    }
-
-    public class EmptyTableFormatter : ITableFormatter
+    public class EmptyTableParser : ITableParser
     {
         public string ConvertTable(ReportTable table)
         {

@@ -17,7 +17,7 @@ namespace ToyBlockFactory
             OrderItems = orderItems;
         }
 
-        public void AssignOrderNumber(int orderNumber)
+        public void SetOrderNumber(int orderNumber)
         {
             OrderNumber = orderNumber;
         }
