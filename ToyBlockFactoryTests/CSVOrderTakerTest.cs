@@ -26,12 +26,11 @@ namespace ToyBlockFactoryTests
         {
             var productsList = new List<OrderItem>();
             var inputReader = new MockInputReader(standardCSVHeaders, csvBodyWithOneOrder);
-            var orderInputValidator = new MockOrderInputValidator();
+            var orderInputValidator = new OrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
             var orders = orderTaker.CreateOrder();
             var result = orders[0];
-            var resultorderItems = result.OrderItems;
 
             Assert.IsType<Order>(result);
             Assert.Equal("Test Name", result.Customer.Name);
@@ -42,9 +41,8 @@ namespace ToyBlockFactoryTests
         public void ShouldCreateAnOrderWithCorrectDueDate_WhenValidInputReceived()
         {
             var productsList = new List<OrderItem>();
-            var csvBody = new List<string[]>();
-            var inputReader = new MockInputReader(standardCSVHeaders,csvBody);
-            var orderInputValidator = new MockOrderInputValidator();
+            var inputReader = new MockInputReader(standardCSVHeaders, csvBodyWithOneOrder);
+            var orderInputValidator = new OrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
             var orders = orderTaker.CreateOrder();
@@ -81,10 +79,11 @@ namespace ToyBlockFactoryTests
             };
 
             var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
-            var orderInputValidator = new MockOrderInputValidator();
+            var orderInputValidator = new OrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
-            Order result = orderTaker.CreateOrder();
+            var orders = orderTaker.CreateOrder();
+            var result = orders[0];
 
             Assert.Equal(9, result.OrderItems.GetNumberOfItems());
             Assert.Equal(1, result.OrderItems.GetQuantityByShapeAndColor(square,red));

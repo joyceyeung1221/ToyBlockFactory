@@ -20,10 +20,13 @@ namespace ToyBlockFactory
 
         public void Run()
         {
-            var order = _orderTaker.CreateOrder();
-            AssignOrderNumber(order);
-            var reports = _reportFactory.CreateReports(order);
-            PrintReports(reports);
+            var orders = _orderTaker.CreateOrder();
+            foreach (var order in orders)
+            {
+                AssignOrderNumber(order);
+                var reports = _reportFactory.CreateReports(order);
+                PrintReports(reports);
+            }
         }
 
         private void PrintReports(List<OrderReport> reports)

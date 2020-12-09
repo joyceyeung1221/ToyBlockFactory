@@ -19,18 +19,25 @@ namespace ToyBlockFactory
             _orderInputValidator = orderInputValidator;
         }
 
-        public Order CreateOrder()
+        public List<Order> CreateOrder()
         {
+            var orders = new List<Order>();
             var orderInput = _inputReader.GetInput();
             SetCSVFileHeaders(orderInput);
-            var orderDetails = orderInput[1];
 
-            var customer = GetCustomer(orderDetails);
-            var dueDate = GetDueDate(orderDetails);
-            var orderItems = GetOrderItems(orderDetails);
+            for(var i = 1; i < orderInput.Count; i++)
+            {
+                var orderDetails = orderInput[i];
 
-            return new Order(dueDate, customer, orderItems);
+                var customer = GetCustomer(orderDetails);
+                var dueDate = GetDueDate(orderDetails);
+                var orderItems = GetOrderItems(orderDetails);
 
+                var order = new Order(dueDate, customer, orderItems);
+                orders.Add(order);
+            }
+
+            return orders;
         }
 
         private DateTime GetDueDate(string[] orderDetails)

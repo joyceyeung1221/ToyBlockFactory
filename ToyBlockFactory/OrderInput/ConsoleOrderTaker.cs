@@ -21,13 +21,16 @@ namespace ToyBlockFactory
             _orderInputValidator = orderInputValidator;
         }
 
-        public Order CreateOrder()
+        public List<Order> CreateOrder()
         {
+            var orders = new List<Order>();
             var customer = GetCustomer();
             var dueDate = GetDueDate();
             var orderItems = GetOrderItems();
+            var order =  new Order(dueDate, customer, orderItems);
+            orders.Add(order);
 
-            return new Order(dueDate, customer, orderItems);
+            return orders;
         }
 
         private Customer GetCustomer()
