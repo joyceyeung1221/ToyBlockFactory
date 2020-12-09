@@ -5,16 +5,15 @@ namespace ToyBlockFactory
 {
     public class OrderInputValidator : IOrderInputValidator
     {
-        private string _dateInputFormat = "dd MMM yyyy";
         private int _minOrderInput = 0;
         private int _maxOrderInput = 100;
         private int _minCharForName = 3;
         private int _minCharForAddress = 10;
 
-        public bool IsValidDate(string input)
+        public bool IsValidDueDate(string input, string dateInputFormat)
         {
             DateTime date;
-            var IsInDateFormat = DateTime.TryParseExact(input, _dateInputFormat, null,
+            var IsInDateFormat = DateTime.TryParseExact(input, dateInputFormat, null,
                System.Globalization.DateTimeStyles.AllowWhiteSpaces,
                out date);
             if (IsInDateFormat)

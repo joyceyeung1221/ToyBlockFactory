@@ -88,7 +88,7 @@ namespace ToyBlockFactory
                 case addressRequest:
                     return _orderInputValidator.IsValidAddress(input);
                 case dueDateRequest:
-                    return _orderInputValidator.IsValidDate(input);
+                    return _orderInputValidator.IsValidDueDate(input, _dateInputFormat);
                 default:
                     return _orderInputValidator.IsValidQuantity(input);
             }

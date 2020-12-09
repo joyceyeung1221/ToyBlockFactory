@@ -11,21 +11,31 @@ namespace ToyBlockFactoryTests
         {
             "first name","address","due date","red squares","blue Squares","yellow squares","red triangles","blue triangles","yellow triangles","red circles","blue circles","yellow circles"
         };
-        private IOrderInputValidator orderInputValidator = new OrderInputValidator();
+
+        private List<string[]> csvBodyWithOneOrder = new List<string[]>
+        {
+            new string[]
+            {
+                "Test Name","Test Address","19-Jan-21","1","2","3","4","5","6","7","8","9"
+            }
+
+        };
 
         [Fact]
         public void ShouldCreateAnOrderWithCorrectCustomerDetails_WhenValidInputReceived()
         {
             var productsList = new List<OrderItem>();
-            var inputReader = new MockInputReader(standardCSVHeaders);
+            var inputReader = new MockInputReader(standardCSVHeaders, csvBodyWithOneOrder);
+            var orderInputValidator = new MockOrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
-            var result = orderTaker.CreateOrder();
+            var orders = orderTaker.CreateOrder();
+            var result = orders[0];
             var resultorderItems = result.OrderItems;
 
             Assert.IsType<Order>(result);
             Assert.Equal("Test Name", result.Customer.Name);
-            Assert.Equal("1 May Street", result.Customer.Address);
+            Assert.Equal("Test Address", result.Customer.Address);
         }
 
         [Fact]
@@ -33,10 +43,12 @@ namespace ToyBlockFactoryTests
         {
             var productsList = new List<OrderItem>();
             var csvBody = new List<string[]>();
-            var inputReader = new MockInputReader(standardCSVHeaders);
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBody);
+            var orderInputValidator = new MockOrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
-            var result = orderTaker.CreateOrder();
+            var orders = orderTaker.CreateOrder();
+            var result = orders[0];
             var expectedDueDate = new DateTime(2021, 01, 19);
 
 
@@ -46,15 +58,6 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldCreateAnOrderWithCorrectNumberAndQuantityOfOrderItems_WhenValidInputReceived()
         {
-            var csvBody = new List<string[]>
-            {
-                new string[]
-                {
-                    "Test Name","1 May Street","19-Jan-21","1","2","3","4","5","6","7","8","9"
-                }
-
-            };
-
             var red = new Color("Red", (decimal)1.00);
             var yellow = new Color("Yellow", (decimal)0.00);
             var blue = new Color("Blue", (decimal)0.00);
@@ -77,7 +80,8 @@ namespace ToyBlockFactoryTests
                 new OrderItem(triangle,blue)
             };
 
-            var inputReader = new MockInputReader(standardCSVHeaders);
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
+            var orderInputValidator = new MockOrderInputValidator();
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
 
             Order result = orderTaker.CreateOrder();
@@ -99,118 +103,83 @@ namespace ToyBlockFactoryTests
         public void ShouldThrowInvalidInputExceptionWithCorrectMessage_WhenInvalidCustomerNameReceived()
         {
             var productsList = new List<OrderItem>();
-            var inputReader = new MockInputReader(standardCSVHeaders);
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
             var orderInputValidator = new MockOrderInputValidator();
             orderInputValidator.SetReturnToFalse("name");
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
             Action act = () => orderTaker.CreateOrder();
 
             var exception = Assert.Throws<InvalidInputException>(act);
-            Assert.Equal("Invalid first name - Name should start with alphabet letter and with the minimal length of 3.", exception.Message);
+            Assert.Equal("Test Name is an invalid input - Name should start with alphabet letter and with the minimal length of 3 characters.", exception.Message);
 
         }
 
-        //[Fact]
-        //public void ShouldThrowInvalidInputException_WhenInvalidCSVHeadersIsReceived()
-        //{
-
-        //}
-
-        //[Fact]
-        //public void ShouldThrowInvalidDueDateException_WhenInvalidCustomerDetailsInputReceived()
-        //{
-
-        //}
-
-        //[Fact]
-        //public void ShouldThrowIncorrectOrderItemException_WhenInvalidCustomerDetailsInputReceived()
-        //{
-
-        //}
-
-        //[Fact]
-        //public void ShouldCreateMultipleOrders_WhenMultipleOrderDetailsRowsAreReceived()
-        //{
-
-        //}
-
-    }
-
-    public class MockOrderInputValidator : IOrderInputValidator
-    {
-        private bool _isValidName = true;
-        private bool _isValidAddress = true;
-        private bool _isValidDueDate = true;
-        private bool _isValidQuantity = true;
-
-        public void SetReturnToFalse(string field)
+        [Fact]
+        public void ShouldThrowInvalidInputExceptionWithCorrectMessage_WhenInvalidCustomerAddressReceived()
         {
-            switch (field)
+            var productsList = new List<OrderItem>();
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
+            var orderInputValidator = new MockOrderInputValidator();
+            orderInputValidator.SetReturnToFalse("address");
+            var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
+            Action act = () => orderTaker.CreateOrder();
+
+            var exception = Assert.Throws<InvalidInputException>(act);
+            Assert.Equal("Test Address is an invalid input - Address should have the minimal length of 10 characters.", exception.Message);
+
+        }
+
+        [Fact]
+        public void ShouldThrowInvalidInputException_WhenInvalidDueDateInputReceived()
+        {
+            var productsList = new List<OrderItem>();
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
+            var orderInputValidator = new MockOrderInputValidator();
+            orderInputValidator.SetReturnToFalse("dueDate");
+            var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
+            Action act = () => orderTaker.CreateOrder();
+
+            var exception = Assert.Throws<InvalidInputException>(act);
+            Assert.Equal("19-Jan-21 is an invalid input - Date could not be in the past and should be in DD-MMM-YY format.", exception.Message);
+
+        }
+
+        [Fact]
+        public void ShouldThrowInvalidInputException_WhenInvalidQuantityInputReceived()
+        {
+            var productsList = new OrderItemFactory().CreateOrderItems();
+            var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
+            var orderInputValidator = new MockOrderInputValidator();
+            orderInputValidator.SetReturnToFalse("quantity");
+            var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
+            Action act = () => orderTaker.CreateOrder();
+
+            var exception = Assert.Throws<InvalidInputException>(act);
+            Assert.Equal("8 is an invalid input - Quantity should be recorded in round number and within the range of 1 - 100.", exception.Message);
+
+        }
+
+        [Fact]
+        public void ShouldCreateMultipleOrders_WhenMultipleOrderDetailsRowsAreReceived()
+        {
+            var csvBodyWithTwoOrders = new List<string[]>
             {
-                case "name":
-                    _isValidName = false;
-                    break;
-                case "address":
-                    _isValidAddress = false;
-                    break;
-                case "date":
-                    _isValidDueDate = false;
-                    break;
-                case "quantity":
-                    _isValidQuantity = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public bool IsValidAddress(string input)
-        {
-            return _isValidAddress;
-        }
-
-        public bool IsValidDate(string input)
-        {
-            return _isValidDueDate;
-        }
-
-        public bool IsValidName(string input)
-        {
-            return _isValidName;
-        }
-
-        public bool IsValidQuantity(string input)
-        {
-            return _isValidQuantity;
-        }
-    }
-
-    public class MockInputReader : IInputReader
-    {
-        private string[] _header;
-        private List<string[]> _csvBody = new List<string[]>
-        {
-            new string[]
-            {
-                "Test Name","1 May Street","19-Jan-21","1","2","3","4","5","6","7","8","9"
-            }
-
-        };
-
-        public MockInputReader(string[] header)
-        {
-            _header = header;
-        }
-
-        public List<string[]> GetInput()
-        {
-            var input = new List<string[]>
-            {
-                _header
-
+                new string[]
+                {
+                    "Test Name","Test Address","19-Jan-21","1","2","3","4","5","6","7","8","9"
+                },
+                new string[]
+                {
+                    "Test Name","Test Address","19-Jan-21","1","2","3","4","5","6","7","8","9"
+                },
             };
-            input.AddRange(_csvBody);
-            return input;
+            var productsList = new OrderItemFactory().CreateOrderItems();
+            var orderInputValidator = new MockOrderInputValidator();
+            var inputReader = new MockInputReader(standardCSVHeaders, csvBodyWithTwoOrders);
+            var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);
+            var result =  orderTaker.CreateOrder();
+
+            Assert.Equal(2, result.Count);
         }
     }
 }
