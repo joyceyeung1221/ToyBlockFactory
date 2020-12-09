@@ -10,6 +10,7 @@
     <Folder Include="Order\" />
     <Folder Include="Factory\" />
     <Folder Include="ReportOutput\" />
+    <Folder Include="OrderInput\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConsoleTables" Version="2.4.2" />

@@ -7,17 +7,17 @@ namespace ToyBlockFactory
     public class ConsoleOrderTaker : ICreateOrder
     {
         private IInputOutput _io;
-        private List<OrderItem> _listOfOptions;
-        private OrderInputValidator _orderInputValidator;
+        private List<OrderItem> _productsList;
+        private IOrderInputValidator _orderInputValidator;
         private string _dateInputFormat = "dd MMM yyyy";
         private const string nameRequest = "Your Name";
         private const string addressRequest = "Your Address";
         private const string dueDateRequest = "Your Due Date in DD MMM YYYY format";
 
-        public ConsoleOrderTaker(IInputOutput io, List<OrderItem> orderItemsList, OrderInputValidator orderInputValidator)
+        public ConsoleOrderTaker(IInputOutput io, List<OrderItem> productsList, IOrderInputValidator orderInputValidator)
         {
             _io = io;
-            _listOfOptions = orderItemsList;
+            _productsList = productsList;
             _orderInputValidator = orderInputValidator;
         }
 
@@ -53,14 +53,14 @@ namespace ToyBlockFactory
         private OrderItemsCollection GetOrderItems()
         {
             var orderItems = new List<OrderItem>();
-            foreach(var orderItem in _listOfOptions)
+            foreach(var item in _productsList)
             {
-                var input = GetValidUserInput($"the number of {orderItem.ColorOption.Name} {orderItem.Block.Shape}s");
+                var input = GetValidUserInput($"the number of {item.GetDisplayName().ToLower()}s");
                 var quantity = Int32.Parse(input);
                 if ( quantity > 0)
                 {
-                    orderItem.SetQuantity(quantity);
-                    orderItems.Add(orderItem);
+                    item.SetQuantity(quantity);
+                    orderItems.Add(item);
                 }
             }
             var orderItemsCollection = new OrderItemsCollection(orderItems);

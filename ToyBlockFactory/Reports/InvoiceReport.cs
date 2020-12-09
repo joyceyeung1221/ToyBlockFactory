@@ -35,7 +35,7 @@ namespace ToyBlockFactory
             {
                 if (color.Price != 0)
                 {
-                    var name = color.Name + " " + "color surcharge";
+                    var name = $"{color.Name} color surcharge";
                     var quantity = orderItems.GetQuantityByColor(color);
                     var pricePerItem = color.Price;
                     var totalCost = quantity * color.Price;

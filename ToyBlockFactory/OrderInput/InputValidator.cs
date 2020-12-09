@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
-    public class OrderInputValidator
+    public class OrderInputValidator : IOrderInputValidator
     {
         private string _dateInputFormat = "dd MMM yyyy";
         private int _minOrderInput = 0;
