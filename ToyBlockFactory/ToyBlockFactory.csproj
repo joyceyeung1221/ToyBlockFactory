@@ -10,8 +10,10 @@
     <Folder Include="Order\" />
     <Folder Include="Factory\" />
     <Folder Include="ReportOutput\" />
+    <Folder Include="OrderInput\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ConsoleTables" Version="2.4.2" />
+    <PackageReference Include="CsvHelper" Version="17.0.1" />
   </ItemGroup>
 </Project>

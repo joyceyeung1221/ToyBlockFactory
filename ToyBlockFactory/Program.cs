@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
@@ -7,15 +6,24 @@ namespace ToyBlockFactory
     {
         static void Main(string[] args)
         {
-            var orderItemsList = new OrderItemFactory().CreateOrderItems();
-            var orderInputValidator = new OrderInputValidator();
-            var io = new ConsoleIO();
-            var orderTaker = new ConsoleOrderTaker(io, orderItemsList, orderInputValidator);
-            var reportOutput = new ReportOutput(new ConsoleReportParser(new ConsoleTableParser()), io);
-            var reportFactory = new OrderReportFactory();
 
-            var managementSystem = new OrderManagementSystem(orderTaker, reportOutput, reportFactory);
-            managementSystem.Run();
+            var orderItemFactory = new OrderItemsFactory();
+            var orderManagementSystem = OrderManagementSystemFactory.Create(orderItemFactory, args);
+            Run(orderManagementSystem);
+        }
+
+        private static void Run(OrderManagementSystem orderManagementSystem)
+        {
+            try
+            {
+                orderManagementSystem.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+
+                Environment.Exit(0);
+            }
         }
     }
 }

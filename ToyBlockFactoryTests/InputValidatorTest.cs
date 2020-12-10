@@ -7,6 +7,7 @@ namespace ToyBlockFactoryTests
     public class InputValidatorTest
     {
         private OrderInputValidator _validator;
+        private string _dateInputFormat = "dd MMM yyyy";
 
         public InputValidatorTest()
         {
@@ -21,7 +22,7 @@ namespace ToyBlockFactoryTests
         [InlineData("30 Jai 2020")]
         public void ShouldReturnFalse_WhenInvalidDateInputReceived(string userIncorrectInput)
         {
-            var result = _validator.IsValidDate(userIncorrectInput);
+            var result = _validator.IsValidDueDate(userIncorrectInput, _dateInputFormat);
 
             Assert.False(result);
         }
@@ -30,7 +31,7 @@ namespace ToyBlockFactoryTests
         public void ShouldReturnTrue_WhenInvalidDateInputReceived()
         {
             var tomorrowDate = DateTime.Today.AddDays(1).ToString("dd MMM yyyy");
-            var result = _validator.IsValidDate(tomorrowDate);
+            var result = _validator.IsValidDueDate(tomorrowDate, _dateInputFormat);
 
             Assert.True(result);
         }
@@ -38,7 +39,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldReturnFalse_WhenPastDateReceivedAsDueDate()
         {
-            var result = _validator.IsValidDate("1 Nov 2000");
+            var result = _validator.IsValidDueDate("1 Nov 2000", _dateInputFormat);
 
             Assert.False(result);
         }

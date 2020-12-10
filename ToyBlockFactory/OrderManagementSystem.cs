@@ -7,10 +7,10 @@ namespace ToyBlockFactory
     {
         private ICreateOrder _orderTaker;
         private ReportOutput _reportOutput;
-        private OrderReportFactory _reportFactory;
+        private OrderReportsFactory _reportFactory;
         private int _lastOrderNumber;
 
-        public OrderManagementSystem(ICreateOrder orderTaker, ReportOutput reportOutput, OrderReportFactory reportFactory)
+        public OrderManagementSystem(ICreateOrder orderTaker, ReportOutput reportOutput, OrderReportsFactory reportFactory)
         {
             _orderTaker = orderTaker;
             _reportOutput = reportOutput;
@@ -20,10 +20,14 @@ namespace ToyBlockFactory
 
         public void Run()
         {
-            var order = _orderTaker.CreateOrder();
-            AssignOrderNumber(order);
-            var reports = _reportFactory.CreateReports(order);
-            PrintReports(reports);
+            var orders = _orderTaker.CreateOrder();
+            foreach (var order in orders)
+            {
+                AssignOrderNumber(order);
+                var reports = _reportFactory.Create(order);
+                PrintReports(reports);
+            }
+
         }
 
         private void PrintReports(List<OrderReport> reports)

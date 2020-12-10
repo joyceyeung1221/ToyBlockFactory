@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ToyBlockFactory
 {
     public interface ICreateOrder
     {
-        Order CreateOrder();
+        List<Order> CreateOrder();
     }
 }

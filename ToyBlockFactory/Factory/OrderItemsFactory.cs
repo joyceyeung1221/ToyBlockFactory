@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class OrderItemFactory
+    public class OrderItemsFactory
     {
         private List<Color> _colors;
         private List<Block> _shapes;
 
-        public OrderItemFactory()
+        public OrderItemsFactory()
         {
             _colors = new List<Color>
             {
@@ -25,7 +25,7 @@ namespace ToyBlockFactory
             };
         }
 
-        public List<OrderItem> CreateOrderItems()
+        public List<OrderItem> Create()
         {
             var orderItems = new List<OrderItem>();
             foreach(var shape in _shapes)

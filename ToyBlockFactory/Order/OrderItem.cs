@@ -20,5 +20,10 @@ namespace ToyBlockFactory
         {
             Quantity = quantity;
         }
+
+        public string GetDisplayName()
+        {
+            return $"{ColorOption.Name} {Block.Shape}";
+        }
     }
 }

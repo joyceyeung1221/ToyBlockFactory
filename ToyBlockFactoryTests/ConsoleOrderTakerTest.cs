@@ -38,13 +38,13 @@ namespace ToyBlockFactoryTests
             };
 
             var orderHandler = new ConsoleOrderTaker(io.Object, listOfOptions, new OrderInputValidator());
-            var order = orderHandler.CreateOrder();
-            order.SetOrderNumber(1);
-            var orderItems = order.OrderItems;
+            var orders = orderHandler.CreateOrder();
+            var result = orders[0];
+            var orderItems = result.OrderItems;
 
-            Assert.Equal(_testName, order.Customer.Name);
-            Assert.Equal(_testAddress, order.Customer.Address);
-            Assert.Equal(_testDueDate, order.DueDate);
+            Assert.Equal(_testName, result.Customer.Name);
+            Assert.Equal(_testAddress, result.Customer.Address);
+            Assert.Equal(_testDueDate, result.DueDate);
             Assert.Equal(2, orderItems.GetNumberOfItems());
             Assert.Equal(1, orderItems.GetQuantityByShapeAndColor(TestData.Blocks[0], TestData.Colors[0]));
             Assert.Equal(3, orderItems.GetQuantityByShapeAndColor(TestData.Blocks[1], TestData.Colors[1]));
