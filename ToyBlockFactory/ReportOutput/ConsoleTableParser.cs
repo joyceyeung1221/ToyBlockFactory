@@ -5,7 +5,7 @@ namespace ToyBlockFactory
 {
     public class ConsoleTableParser : ITableParser
     {
-        public string ConvertTable(ReportTable reportTable)
+        public string FormatTable(ReportTable reportTable)
         {
             var header = new List<string>(reportTable.Header); 
             header.Insert(0, " ");

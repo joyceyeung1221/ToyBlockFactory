@@ -13,7 +13,7 @@ namespace ToyBlockFactory
             _tableParser = tableParser;
         }
 
-        public string ConvertToString(OrderReport report)
+        public string FormatToString(OrderReport report)
         {
             var stringToOutput = ConvertHeader(report) + ConvertOrderSummary(report.GetOrderSummary()) + ConvertTable(report.GetTable());
             if(report is InvoiceReport)
@@ -38,7 +38,7 @@ namespace ToyBlockFactory
 
         private string ConvertTable(ReportTable table)
         {
-            return _tableParser.ConvertTable(table);
+            return _tableParser.FormatTable(table);
         }
 
         private string ConvertItemsList(List<InvoiceItem> itemsList)

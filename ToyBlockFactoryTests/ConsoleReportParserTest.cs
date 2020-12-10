@@ -11,9 +11,9 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertNonTableDataInPaintingReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportParser(new EmptyTableParser());
+            var parser = new ConsoleReportParser(new EmptyTableParser());
             var report = new PaintingReport(TestData.TestOrder);
-            var result = formatter.ConvertToString(report);
+            var result = parser.FormatToString(report);
 
             var expected = "Your painting report has been generated:" + "\n" +
                             "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001" + "\n" +
@@ -25,9 +25,9 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertNonTableDataInInvoiceReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportParser(new EmptyTableParser());
+            var parser = new ConsoleReportParser(new EmptyTableParser());
             var report = new InvoiceReport(TestData.TestOrder);
-            var result = formatter.ConvertToString(report);
+            var result = parser.FormatToString(report);
 
             var expected = "Your invoice report has been generated:" + "\n" +
                             "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001" + "\n" +
@@ -43,9 +43,9 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldConvertNonTableDataInCuttingReportIntoASpecificString()
         {
-            var formatter = new ConsoleReportParser(new EmptyTableParser());
+            var parser = new ConsoleReportParser(new EmptyTableParser());
             var report = new CuttingListReport(TestData.TestOrder);
-            var result = formatter.ConvertToString(report);
+            var result = parser.FormatToString(report);
 
             var expected = "Your cutting list has been generated:\n" +
                                 "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001\n" +
@@ -57,7 +57,7 @@ namespace ToyBlockFactoryTests
 
     public class EmptyTableParser : ITableParser
     {
-        public string ConvertTable(ReportTable table)
+        public string FormatTable(ReportTable table)
         {
             return "";
         }
