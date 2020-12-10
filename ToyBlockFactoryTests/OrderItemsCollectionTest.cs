@@ -159,7 +159,7 @@ namespace ToyBlockFactoryTests
             };
             var orderItemsCollection = new OrderItemsCollection(orderItems);
 
-            Assert.Equal(5, orderItemsCollection.GetNumberOfItems());
+            Assert.Equal(5, orderItemsCollection.Count());
         }
     }
 }

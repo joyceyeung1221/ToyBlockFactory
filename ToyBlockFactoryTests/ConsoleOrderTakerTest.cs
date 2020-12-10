@@ -45,7 +45,7 @@ namespace ToyBlockFactoryTests
             Assert.Equal(_testName, result.Customer.Name);
             Assert.Equal(_testAddress, result.Customer.Address);
             Assert.Equal(_testDueDate, result.DueDate);
-            Assert.Equal(2, orderItems.GetNumberOfItems());
+            Assert.Equal(2, orderItems.Count());
             Assert.Equal(1, orderItems.GetQuantityByShapeAndColor(TestData.Blocks[0], TestData.Colors[0]));
             Assert.Equal(3, orderItems.GetQuantityByShapeAndColor(TestData.Blocks[1], TestData.Colors[1]));
         }

@@ -34,6 +34,29 @@ namespace ToyBlockFactoryTests
         }
 
         [Fact]
+        public void ShouldConvertPaintingReportIntoASpecificString()
+        {
+            var formatter = new ConsoleReportParser(new ConsoleTableParser());
+            var report = new PaintingReport(TestData.TestOrder);
+            var result = formatter.FormatToString(report);
+
+            var expected = "Your painting report has been generated:" + "\n" +
+                            "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001" + "\n" +
+                             " ---------------------------------- \n" +
+                             " |          | Blue | Red | Yellow |\n" +
+                             " ---------------------------------- \n" +
+                             " | Circle   | 0    | 2   | 3      |\n" +
+                             " ---------------------------------- \n" +
+                             " | Square   | 1    | 0   | 0      |\n" +
+                             " ---------------------------------- \n" +
+                             " | Triangle | 0    | 0   | 1      |\n" +
+                             " ---------------------------------- \n\n" +
+                             " Count: 3\n";
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void ShouldConvertCuttingReportIntoASpecificString()
         {
             var formatter = new ConsoleReportParser(new ConsoleTableParser());

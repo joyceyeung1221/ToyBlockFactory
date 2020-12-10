@@ -19,7 +19,7 @@ namespace ToyBlockFactory
             {
                 colors.Add(item.ColorOption);
             }
-            colors = RemoveDuplicate(colors);
+            colors = RemoveDuplicates(colors);
             colors.Sort((x, y) => x.Name.CompareTo(y.Name));
 
             return colors;
@@ -32,13 +32,13 @@ namespace ToyBlockFactory
             {
                 shapes.Add(item.Block);
             }
-            shapes = RemoveDuplicate(shapes);
+            shapes = RemoveDuplicates(shapes);
             shapes.Sort((x, y) => x.Shape.CompareTo(y.Shape));
 
             return shapes;
         }
 
-        private List<Color> RemoveDuplicate(List<Color> colors)
+        private List<Color> RemoveDuplicates(List<Color> colors)
         {
             var uniqueList = new List<Color>();
             foreach (var color in colors)
@@ -51,7 +51,7 @@ namespace ToyBlockFactory
             return uniqueList;
         }
 
-        private List<Block> RemoveDuplicate(List<Block> blocks)
+        private List<Block> RemoveDuplicates(List<Block> blocks)
         {
             var uniqueList = new List<Block>();
             foreach (var block in blocks)
@@ -103,7 +103,7 @@ namespace ToyBlockFactory
             return 0;
         }
 
-        public int GetNumberOfItems()
+        public int Count()
         {
             return _orderItems.Count;
         }
