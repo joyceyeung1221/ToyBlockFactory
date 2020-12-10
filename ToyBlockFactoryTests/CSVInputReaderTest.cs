@@ -24,7 +24,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldReturnAListContainTheSameNumberOfElementAsTheNumberOfRows()
         {
-            string filePath = "/Users/Joyce.Yeung/Projects/ToyBlockFactory/ToyBlockFactory/SampleInput/sample_input.csv";
+            string filePath = "/Users/Joyce.Yeung/Projects/ToyBlockFactory/ToyBlockFactory/Sample/sample_input.csv";
             var processor = new CSVInputReader(filePath);
             var result = processor.GetInput();
 

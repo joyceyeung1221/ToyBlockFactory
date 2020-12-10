@@ -3,18 +3,18 @@ namespace ToyBlockFactory
 {
     public class ReportOutput
     {
-        private IReportParser _parser;
+        private IReportParser _reportParser;
         private IReportPrinter _printer;
 
         public ReportOutput(IReportParser reportParser, IReportPrinter printer)
         {
-            _parser = reportParser;
+            _reportParser = reportParser;
             _printer = printer;
         }
 
         public void Print(OrderReport orderReport)
         {
-            var output = _parser.ConvertToString(orderReport);
+            var output = _reportParser.FormatToString(orderReport);
             _printer.Print(output);
         }
     }

@@ -11,7 +11,7 @@ namespace ToyBlockFactoryTests
         {
             var formatter = new ConsoleReportParser(new ConsoleTableParser());
             var report = new InvoiceReport(TestData.TestOrder);
-            var result = formatter.ConvertToString(report);
+            var result = formatter.FormatToString(report);
 
             var expected = "Your invoice report has been generated:" + "\n" +
                             "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001" + "\n" +
@@ -38,7 +38,7 @@ namespace ToyBlockFactoryTests
         {
             var formatter = new ConsoleReportParser(new ConsoleTableParser());
             var report = new CuttingListReport(TestData.TestOrder);
-            var result = formatter.ConvertToString(report);
+            var result = formatter.FormatToString(report);
 
             var expected = "Your cutting list has been generated:\n" +
                             "Name: Mark Pearl Address: 1 Bob Avenue, Auckland Due Date: 19 Jan 2019 Order #: 0001\n" +

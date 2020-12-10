@@ -3,6 +3,6 @@ namespace ToyBlockFactory
 {
     public interface ITableParser
     {
-        string ConvertTable(ReportTable table);
+        string FormatTable(ReportTable table);
     }
 }
