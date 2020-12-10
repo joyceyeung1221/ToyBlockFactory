@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ToyBlockFactory
 {
-    public class OrderReportFactory
+    public class OrderReportsFactory
     {
-        public List<OrderReport> CreateReports(Order order)
+        public List<OrderReport> Create(Order order)
         {
             return new List<OrderReport>
             {

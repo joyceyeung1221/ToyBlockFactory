@@ -9,8 +9,8 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldReturnAListConsistsNineProductItems()
         {
-            var factory = new OrderItemFactory();
-            var result = factory.CreateOrderItems();
+            var factory = new OrderItemsFactory();
+            var result = factory.Create();
 
             Assert.Equal(9, result.Count);
 

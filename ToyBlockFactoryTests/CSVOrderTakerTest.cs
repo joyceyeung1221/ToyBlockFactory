@@ -146,7 +146,7 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldThrowInvalidInputException_WhenInvalidQuantityInputReceived()
         {
-            var productsList = new OrderItemFactory().CreateOrderItems();
+            var productsList = new OrderItemsFactory().Create();
             var inputReader = new MockInputReader(standardCSVHeaders,csvBodyWithOneOrder);
             var orderInputValidator = new MockOrderInputValidator();
             orderInputValidator.SetReturnToFalse("quantity");
@@ -172,7 +172,7 @@ namespace ToyBlockFactoryTests
                     "Test Name","Test Address","19-Jan-21","1","2","3","4","5","6","7","8","9"
                 },
             };
-            var productsList = new OrderItemFactory().CreateOrderItems();
+            var productsList = new OrderItemsFactory().Create();
             var orderInputValidator = new MockOrderInputValidator();
             var inputReader = new MockInputReader(standardCSVHeaders, csvBodyWithTwoOrders);
             var orderTaker = new CSVOrderTaker(inputReader, productsList, orderInputValidator);

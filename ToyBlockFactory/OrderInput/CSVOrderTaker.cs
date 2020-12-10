@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ToyBlockFactory
 {
@@ -22,22 +21,28 @@ namespace ToyBlockFactory
         public List<Order> CreateOrder()
         {
             var orders = new List<Order>();
+
             var orderInput = _inputReader.GetInput();
             SetCSVFileHeaders(orderInput);
 
             for(var i = 1; i < orderInput.Count; i++)
             {
-                var orderDetails = orderInput[i];
-
-                var customer = GetCustomer(orderDetails);
-                var dueDate = GetDueDate(orderDetails);
-                var orderItems = GetOrderItems(orderDetails);
-
-                var order = new Order(dueDate, customer, orderItems);
+                var order = ConvertRowDataToOrder(orderInput, i);
                 orders.Add(order);
             }
-
             return orders;
+        }
+
+        private Order ConvertRowDataToOrder(List<string[]> orderInput, int i)
+        {
+            var orderDetails = orderInput[i];
+
+            var customer = GetCustomer(orderDetails);
+            var dueDate = GetDueDate(orderDetails);
+            var orderItems = GetOrderItems(orderDetails);
+
+            var order = new Order(dueDate, customer, orderItems);
+            return order;
         }
 
         private DateTime GetDueDate(string[] orderDetails)
@@ -82,13 +87,13 @@ namespace ToyBlockFactory
                 string optionInDisplayName = $"{item.GetDisplayName().ToLower()}s";
                 var itemIndex = Array.FindIndex(_csvFileHeaders, x => x.ToLower() == optionInDisplayName);
                 var inputForItem = orderDetails[itemIndex];
-                if (!_orderInputValidator.IsValidQuantity(inputForItem))
-                {
-                    throw (new InvalidInputException($"{inputForItem} is an invalid input - Quantity should be recorded in round number and within the range of 1 - 100."));
-
-                }
                 if (inputForItem != "")
                 {
+                    if (!_orderInputValidator.IsValidQuantity(inputForItem))
+                    {
+                        throw (new InvalidInputException($"{inputForItem} is an invalid input - Quantity should be recorded in round number and within the range of 1 - 100."));
+
+                    }
                     var quantity = Int32.Parse(inputForItem);
                     item.SetQuantity(quantity);
                     orderItems.Add(item);
