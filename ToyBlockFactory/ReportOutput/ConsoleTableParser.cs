@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ConsoleTables;
+
 namespace ToyBlockFactory
 {
     public class ConsoleTableParser : ITableParser

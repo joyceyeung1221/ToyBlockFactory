@@ -11,7 +11,6 @@ namespace ToyBlockFactoryTests
         [Fact]
         public void ShouldTableHeaderContainOneElement()
         {
-
             var report = new CuttingListReport(TestData.TestOrder);
             var table = report.GetTable();
             var result = table.Header;

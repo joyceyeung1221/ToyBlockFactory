@@ -1,9 +1,9 @@
 ﻿using System;
+
 namespace ToyBlockFactory
 {
     public class ConsoleIO : IInputOutput
     {
-
         public string Input()
         {
             return Console.ReadLine();

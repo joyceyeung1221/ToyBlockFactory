@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
@@ -9,7 +8,7 @@ namespace ToyBlockFactory
         private IInputOutput _io;
         private List<OrderItem> _productsList;
         private IOrderInputValidator _orderInputValidator;
-        private string _dateInputFormat = "dd MMM yyyy";
+        private const string DateInputFormat = "dd MMM yyyy";
         private const string NameRequest = "Your Name";
         private const string AddressRequest = "Your Address";
         private const string DueDateRequest = "Your Due Date in DD MMM YYYY format";
@@ -49,7 +48,7 @@ namespace ToyBlockFactory
 
         private DateTime ConvertToDate(string input)
         {
-            return DateTime.ParseExact(input, _dateInputFormat, null,
+            return DateTime.ParseExact(input, DateInputFormat, null,
                System.Globalization.DateTimeStyles.AllowWhiteSpaces);
         }
 
@@ -91,7 +90,7 @@ namespace ToyBlockFactory
                 case AddressRequest:
                     return _orderInputValidator.IsValidAddress(input);
                 case DueDateRequest:
-                    return _orderInputValidator.IsValidDueDate(input, _dateInputFormat);
+                    return _orderInputValidator.IsValidDueDate(input, DateInputFormat);
                 default:
                     return _orderInputValidator.IsValidQuantity(input);
             }

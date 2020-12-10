@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ToyBlockFactory
 {
     public class OrderItem
     {
-
         public Block Block { get; private set; }
         public Color ColorOption { get; private set; }
         public int Quantity { get; private set; }

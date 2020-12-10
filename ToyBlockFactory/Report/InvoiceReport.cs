@@ -22,14 +22,15 @@ namespace ToyBlockFactory
         private List<InvoiceItem> GenerateItemList(OrderItemsCollection orderItems)
         {
             var itemsList = new List<InvoiceItem>();
-            AddShapeRelatedInvoiceItems(orderItems, itemsList);
-            AddColorRelatedInvoiceItems(orderItems, itemsList);
+            itemsList.AddRange(GetShapeRelatedInvoiceItems(orderItems));
+            itemsList.AddRange(GetColorRelatedInvoiceItems(orderItems));
 
             return itemsList;
         }
 
-        private void AddColorRelatedInvoiceItems(OrderItemsCollection orderItems, List<InvoiceItem> itemsList)
+        private List<InvoiceItem> GetColorRelatedInvoiceItems(OrderItemsCollection orderItems)
         {
+            var itemsList = new List<InvoiceItem>();
             var colors = orderItems.GetAllColors();
             foreach (var color in colors)
             {
@@ -44,10 +45,12 @@ namespace ToyBlockFactory
                     itemsList.Add(invoiceItem);
                 }
             }
+            return itemsList;
         }
 
-        private void AddShapeRelatedInvoiceItems(OrderItemsCollection orderItems, List<InvoiceItem> itemsList)
+        private List<InvoiceItem> GetShapeRelatedInvoiceItems(OrderItemsCollection orderItems)
         {
+            var itemsList = new List<InvoiceItem>();
             var blocks = orderItems.GetAllShapes();
             foreach (var block in blocks)
             {
@@ -59,6 +62,7 @@ namespace ToyBlockFactory
 
                 itemsList.Add(invoiceItem);
             }
+            return itemsList;
         }
     }
 }

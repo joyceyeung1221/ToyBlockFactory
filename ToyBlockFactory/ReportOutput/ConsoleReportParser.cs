@@ -1,5 +1,4 @@
 ﻿using System;
-using ConsoleTables;
 using System.Collections.Generic;
 
 namespace ToyBlockFactory
@@ -52,7 +51,6 @@ namespace ToyBlockFactory
                                     $"{invoiceItem.TotalCost}\n";
 
             }
-
             return stringToOutput;
         }
     }

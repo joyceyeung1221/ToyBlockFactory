@@ -8,7 +8,7 @@ namespace ToyBlockFactory
         private List<OrderItem> _productsList;
         private IInputReader _inputReader;
         private IOrderInputValidator _orderInputValidator;
-        private string _dateInputFormat = "dd-MMM-yy";
+        private const string DateInputFormat = "dd-MMM-yy";
         private string[] _csvFileHeaders;
 
         public CSVOrderTaker(IInputReader inputReader, List<OrderItem> productsList, IOrderInputValidator orderInputValidator)
@@ -49,11 +49,11 @@ namespace ToyBlockFactory
         {
             var dueDateIndex = Array.IndexOf(_csvFileHeaders, "due date");
             var dueDate = orderDetails[dueDateIndex];
-            if (!_orderInputValidator.IsValidDueDate(dueDate, _dateInputFormat))
+            if (!_orderInputValidator.IsValidDueDate(dueDate, DateInputFormat))
             {
                 throw (new InvalidInputException($"{dueDate} is an invalid input - Date could not be in the past and should be in DD-MMM-YY format."));
             }
-            return DateTime.ParseExact(orderDetails[dueDateIndex], _dateInputFormat, null,
+            return DateTime.ParseExact(orderDetails[dueDateIndex], DateInputFormat, null,
                System.Globalization.DateTimeStyles.AllowWhiteSpaces);
         }
 

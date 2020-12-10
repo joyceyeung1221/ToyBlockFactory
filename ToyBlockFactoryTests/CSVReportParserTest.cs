@@ -6,7 +6,6 @@ namespace ToyBlockFactoryTests
 {
     public class CSVReportParserTest
     {
-
         [Fact]
         public void ShouldConvertInvoiceReportIntoASpecificString()
         {
