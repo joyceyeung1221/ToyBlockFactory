@@ -6,10 +6,6 @@ namespace ToyBlockFactoryTests
 {
     public class InvoiceReportTest
     {
-        public InvoiceReportTest()
-        {
-        }
-
         [Fact]
         public void ShouldContainFourElementsWithFourItemOrderDetailsInTheList()
         {

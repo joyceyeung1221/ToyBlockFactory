@@ -85,7 +85,7 @@ namespace ToyBlockFactoryTests
             var orders = orderTaker.CreateOrder();
             var result = orders[0];
 
-            Assert.Equal(9, result.OrderItems.GetNumberOfItems());
+            Assert.Equal(9, result.OrderItems.Count());
             Assert.Equal(1, result.OrderItems.GetQuantityByShapeAndColor(square,red));
             Assert.Equal(2, result.OrderItems.GetQuantityByShapeAndColor(square,blue));
             Assert.Equal(3, result.OrderItems.GetQuantityByShapeAndColor(square,yellow));

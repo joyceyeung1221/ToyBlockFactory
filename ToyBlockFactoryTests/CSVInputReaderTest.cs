@@ -7,10 +7,6 @@ namespace ToyBlockFactoryTests
 {
     public class CSVInputReaderTest
     {
-        public CSVInputReaderTest()
-        {
-        }
-
         [Fact]
         public void ShouldThrowExceptionWhenFileDoesntExist()
         {

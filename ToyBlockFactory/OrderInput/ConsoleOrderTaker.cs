@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace ToyBlockFactory
 {
@@ -9,10 +8,10 @@ namespace ToyBlockFactory
         private IInputOutput _io;
         private List<OrderItem> _productsList;
         private IOrderInputValidator _orderInputValidator;
-        private string _dateInputFormat = "dd MMM yyyy";
-        private const string nameRequest = "Your Name";
-        private const string addressRequest = "Your Address";
-        private const string dueDateRequest = "Your Due Date in DD MMM YYYY format";
+        private const string DateInputFormat = "dd MMM yyyy";
+        private const string NameRequest = "Your Name";
+        private const string AddressRequest = "Your Address";
+        private const string DueDateRequest = "Your Due Date in DD MMM YYYY format";
 
         public ConsoleOrderTaker(IInputOutput io, List<OrderItem> productsList, IOrderInputValidator orderInputValidator)
         {
@@ -35,21 +34,21 @@ namespace ToyBlockFactory
 
         private Customer GetCustomer()
         {
-            var name = GetValidUserInput(nameRequest);
-            var address = GetValidUserInput(addressRequest);
+            var name = GetValidUserInput(NameRequest);
+            var address = GetValidUserInput(AddressRequest);
 
             return new Customer(name, address);
         }
 
         private DateTime GetDueDate()
         {
-            string input = GetValidUserInput(dueDateRequest);
+            string input = GetValidUserInput(DueDateRequest);
             return ConvertToDate(input);
         }
 
         private DateTime ConvertToDate(string input)
         {
-            return DateTime.ParseExact(input, _dateInputFormat, null,
+            return DateTime.ParseExact(input, DateInputFormat, null,
                System.Globalization.DateTimeStyles.AllowWhiteSpaces);
         }
 
@@ -86,12 +85,12 @@ namespace ToyBlockFactory
         {
             switch (request)
             {
-                case nameRequest:
+                case NameRequest:
                     return _orderInputValidator.IsValidName(input);
-                case addressRequest:
+                case AddressRequest:
                     return _orderInputValidator.IsValidAddress(input);
-                case dueDateRequest:
-                    return _orderInputValidator.IsValidDueDate(input, _dateInputFormat);
+                case DueDateRequest:
+                    return _orderInputValidator.IsValidDueDate(input, DateInputFormat);
                 default:
                     return _orderInputValidator.IsValidQuantity(input);
             }
