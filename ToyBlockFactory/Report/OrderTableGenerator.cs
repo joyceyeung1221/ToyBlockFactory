@@ -12,7 +12,7 @@ namespace ToyBlockFactory
 
             var table = new ReportTable(ConvertColorToString(colors));
 
-            table = ConstructTableBody(table, orderItems, colors, blocks);
+            table.ConstructTableBody(orderItems, blocks, colors);
 
             return table;
         }
@@ -27,24 +27,6 @@ namespace ToyBlockFactory
             return list;
         }
 
-        private ReportTable ConstructTableBody(ReportTable table, OrderItemsCollection orderItems, List<Color> colors, List<Block> blocks)
-        {
-            foreach (var block in blocks)
-            {
-                var quantities = GetBlockQuantityByColors(orderItems, colors, block);
-                table.AddRow(block.Shape.ToString(), quantities);
-            }
-            return table;
-        }
 
-        private List<int> GetBlockQuantityByColors(OrderItemsCollection orderItems, List<Color> colors, Block block)
-        {
-            var quantities = new List<int>();
-            foreach (var color in colors)
-            {
-                quantities.Add(orderItems.GetQuantityByShapeAndColor(block, color));
-            }
-            return quantities;
-        }
     }
 }

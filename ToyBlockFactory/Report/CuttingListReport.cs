@@ -17,18 +17,8 @@ namespace ToyBlockFactory
         {
             var blocks = orderItems.GetAllShapes();
             var table = new ReportTable(new List<string> { ColumnHeader });
-            table = ConstructTableBody(table, orderItems, blocks);
+            table.ConstructTableBody(orderItems, blocks);
 
-            return table;
-        }
-
-        private ReportTable ConstructTableBody(ReportTable table, OrderItemsCollection orderItems, List<Block> blocks)
-        {
-            foreach (var block in blocks)
-            {
-                var quantities = new List<int> { orderItems.GetQuantityByShape(block) };
-                table.AddRow(block.Shape.ToString(), quantities);
-            }
             return table;
         }
     }
