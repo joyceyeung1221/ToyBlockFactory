@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace ToyBlockFactory
 {
@@ -12,7 +11,7 @@ namespace ToyBlockFactory
             if (File.Exists(fileName))
             {
                 var splitReport = report.Split('\n');
-                File.AppendAllText(fileName, splitReport[1]);
+                File.AppendAllText(fileName, '\n' + splitReport[1]);
                 return;
             }
             File.WriteAllText(fileName, report);

@@ -24,9 +24,8 @@ namespace ToyBlockFactory
         private string ConstructDataRow(OrderReport report)
         {
             string stringToOutput =
-                ConvertOrderSummary(report.GetOrderSummary()) +
-                ConvertItemsList(((InvoiceReport)report).GetItemList()) +
-                "\n";
+                "\n" + ConvertOrderSummary(report.GetOrderSummary()) +
+                ConvertItemsList(((InvoiceReport)report).GetItemList());
 
             return stringToOutput;
         }
@@ -59,7 +58,7 @@ namespace ToyBlockFactory
         private string GetCSVHeader()
         {
             var stringToOutput = "\"first name\",\"address\",\"due date\",\"order number\",";
-            stringToOutput += GetItemsHeader() + "\n";
+            stringToOutput += GetItemsHeader();
 
             return stringToOutput;
         }
