@@ -7,7 +7,7 @@ The goal of this kata is to create an order management system for a make-to-orde
 ### What I have done
 I impletmented this kata as a **console application** using **C#** language. 
 
-The applications allows user to manually record each individual order through the console, and three different reports will prompt to the console upon the completion of the data entry.
+The applications allows the user to manually record each individual order through the console, and three different reports will prompt to the console upon the completion of the data entry.
 
 As the domain is relatively simple, thus, I also completed one of the customizations suggested in the respository - **Loading from CSV File**.
 
