@@ -17,4 +17,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ToyBlockFactory\ToyBlockFactory.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReportOutput\" />
+    <Folder Include="OrderInput\" />
+    <Folder Include="Report\" />
+  </ItemGroup>
 </Project>

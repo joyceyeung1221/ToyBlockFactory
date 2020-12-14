@@ -9,6 +9,9 @@ namespace ToyBlockFactory
         private IInputReader _inputReader;
         private IOrderInputValidator _orderInputValidator;
         private const string DateInputFormat = "dd-MMM-yy";
+        private const string dueDateHeader = "due date";
+        private const string nameHeader = "first name";
+        private const string addressHeader = "address";
         private string[] _csvFileHeaders;
 
         public CSVOrderTaker(IInputReader inputReader, List<OrderItem> productsList, IOrderInputValidator orderInputValidator)
@@ -47,7 +50,7 @@ namespace ToyBlockFactory
 
         private DateTime GetDueDate(string[] orderDetails)
         {
-            var dueDateIndex = Array.IndexOf(_csvFileHeaders, "due date");
+            var dueDateIndex = Array.IndexOf(_csvFileHeaders, dueDateHeader);
             var dueDate = orderDetails[dueDateIndex];
             if (!_orderInputValidator.IsValidDueDate(dueDate, DateInputFormat))
             {
@@ -59,13 +62,13 @@ namespace ToyBlockFactory
 
         private Customer GetCustomer(string[] orderDetails)
         {
-            var nameIndex = Array.IndexOf(_csvFileHeaders, "first name");
+            var nameIndex = Array.IndexOf(_csvFileHeaders, nameHeader);
             var name = orderDetails[nameIndex];
             if (!_orderInputValidator.IsValidName(name))
             {
                 throw (new InvalidInputException($"{name} is an invalid input - Name should start with alphabet letter and with the minimal length of 3 characters."));
             }
-            var addressIndex = Array.IndexOf(_csvFileHeaders, "address");
+            var addressIndex = Array.IndexOf(_csvFileHeaders, addressHeader);
             var address = orderDetails[addressIndex];
             if (!_orderInputValidator.IsValidAddress(address))
             {
