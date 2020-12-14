@@ -11,7 +11,7 @@ The applications allows user to manually record each individual order through th
 
 As the domain is relatively simple, thus, I also completed one of the customizations suggested in the respository - **Loading from CSV File**.
 
-User can input their order/s through recording order/s in a CSV file in a specific format. If file and data are processed successfully, an invoice report will be output as a CSV file by the application.
+The user can input their order/s through recording order/s in a CSV file in a specific format. If the file and data are processed successfully, an invoice report will be output as a CSV file by the application.
 
 ### Why I did it
 This kata was initially chosen for practicing the use of the following concepts in design and development, but I later decided to also use it in my first quorum review presentation.
@@ -26,7 +26,7 @@ This kata was initially chosen for practicing the use of the following concepts 
 - Read and print CSV file
 - Third party library
 
-### How to run it
+### How to run
 For console input and console output - 
 The application can be executed simply by pressing the **Run** button in most common IDE. Or through a terminal using the following command
 ```
@@ -34,7 +34,7 @@ dotnet run
 ```
 
 For CSV input and CSV output - 
-A complete file directory needs to be provided as an argument following the terminal command.
+A complete file directory needs to be provided as an argument following the command.
 ```
 dotnet run "C:/filepathInsertHere"
 ```
